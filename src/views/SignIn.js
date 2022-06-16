@@ -1,4 +1,4 @@
-import  React, {useState,useContext,useRef, useEffect } from 'react';
+import  React, {useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,11 +10,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {useLocation,useNavigate} from 'react-router-dom'
+
+import { useDispatch } from 'react-redux/es/exports';
 
 
-import axios from '../api/axios';
-import AuthContext from '../context/AuthProvider'
+import { useSelector } from 'react-redux';
+import { loginUser } from '../slices/authSlice';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -24,53 +25,45 @@ function Copyright(props) {
     </Typography>
   );
 }
-const LOGIN_URL = '/api/user/Login'
+
 const theme = createTheme();
 
 export default function SignIn() {
-  const location = useLocation();
- const Navigate = useNavigate();
-  const {authCtx} = useContext(AuthContext);
-  const userRef= useRef();
-  const errRef = useRef();
+   const auth = useSelector((state)=> state.auth);
+   console.log(auth)
+  const dispatch = useDispatch();
 
-  const [email, setUser] = useState('')
-  const [password, setpassword] = useState('');
-  const [errMsg, setErrMsg]= useState('');
+ const [user,setUser] = useState({
+  email : "",
+  password : ""
+ })
 
-useEffect(()=>{
-  userRef.current.focus();
-},[])
-useEffect(()=>{
-  setErrMsg('');
-},[email,password])
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-  setUser('');
-  setpassword('');
-try {
-  const response = await axios.post(LOGIN_URL,
-   JSON.stringify({email,password}),{
-    headers : {'Content-Type' : 'application/json'},
-    withCredentails: true
-   } )
-   console.log(JSON.stringify(response?.data))
-   const Token = response?.data;
-   if (authCtx.isLoggedIn()) {
-    return <Navigate to ="/starter"/>
-   }
-   console.log(Token)
-   console.log( location());
-  } catch (error) {
-  if (!error?.response) {
-      console.log("******errr No server response ")
-  }else if(error.response?.status === 400){
-    console.log('missing email or password');
-  }else if(error.response?.status === 401){
-    console.log('Unauthorized');
-  }
-}
+    dispatch(loginUser(user))
+// try {
+//   const response = await axios.post(LOGIN_URL,
+//    JSON.stringify({email,password}),{
+//     headers : {'Content-Type' : 'application/json'},
+//     withCredentails: true
+//    } )
+//    console.log(JSON.stringify(response?.data))
+//    const Token = response?.data;
+//    if (authCtx.isLoggedIn()) {
+//     return <Navigate to ="/starter"/>
+//    }
+//    console.log(Token)
+//    console.log( location());
+//   } catch (error) {
+//   if (!error?.response) {
+//       console.log("******errr No server response ")
+//   }else if(error.response?.status === 400){
+//     console.log('missing email or password');
+//   }else if(error.response?.status === 401){
+//     console.log('Unauthorized');
+//   }
+// }
   };
 
   return (
@@ -86,12 +79,7 @@ try {
             alignItems: 'center',
           }}
         >
-        <section>
-          <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
-            {errMsg}
-          </p>
-        </section>
-       
+      
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -107,11 +95,9 @@ try {
               label="Email Address"
               name="email"
               autoComplete="email"
-  
-              ref={userRef}
               autoFocus
-                        onChange={(e) => setUser(e.target.value)}
-                        value={email}
+                        onChange={(e) =>setUser({...user, email: e.target.value})}
+                    
       
             />
             <TextField
@@ -123,8 +109,8 @@ try {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={(e) => setpassword(e.target.value)}
-                        value={password}
+              onChange={(e) =>setUser({...user, password: e.target.value})}
+                      
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
