@@ -1,4 +1,4 @@
-import  React, {useState } from 'react';
+import  React, {useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,7 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useDispatch } from 'react-redux/es/exports';
-
+import { useNavigate } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 import { loginUser } from '../slices/authSlice';
@@ -32,7 +32,12 @@ export default function SignIn() {
    const auth = useSelector((state)=> state.auth);
    console.log(auth)
   const dispatch = useDispatch();
-
+const navigate =  useNavigate();
+useEffect(()=>{
+  if (auth.email) {
+    navigate("/starter")
+  }
+},[auth.email , navigate]);
  const [user,setUser] = useState({
   email : "",
   password : ""
@@ -123,9 +128,9 @@ export default function SignIn() {
               sx={{ mt: 3, mb: 2 }}
               
             >
-              Sign In
+             {auth.loginStatus === "pending" ? "submitting" : "Login"}
             </Button>
-    
+            {auth.loginStatus === "rejected" ? (<p> error</p> ): null}
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

@@ -26,15 +26,14 @@ return {
 })
 builder.addCase(loginUser.fulfilled,(state,action)=>{
     if (action.payload) {
-
-const user = jwtDecode(action.payload)
+const user = jwtDecode(action.payload.token)
         return {
             ...state,
-            token: action.payload,
+            token: action.payload.token,
             email : user.email,
-password: user.password,
-role : user.role,
-loginStatus : "success"
+            password: user.password,
+            role : user.role,
+            loginStatus : "success"
         }
     }else return state
 })
@@ -60,7 +59,10 @@ export const loginUser = createAsyncThunk(
                 role : user.role
 
             }) ;
-            localStorage.setItem("token",token.data);
+            console.log("token data =");
+
+            console.log(token.data.token);
+            localStorage.setItem("token",token.data.token);
             return token.data
         } catch (error) {
             console.log(error.response.data);
