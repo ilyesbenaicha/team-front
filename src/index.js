@@ -6,14 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
 import Loader from "./layouts/loader/Loader";
 import 'core-js'
-import {AuthProvider} from './context/AuthProvider'
+import { Provider } from 'react-redux'
+import store from "./store"
 ReactDOM.render(
   <Suspense fallback={<Loader />}>
- <AuthProvider>  
+ <Provider store={store}>  
   <HashRouter>
      <App />
     </HashRouter>
-     </AuthProvider>
+    </Provider>
   </Suspense>,
 
   document.getElementById("root")

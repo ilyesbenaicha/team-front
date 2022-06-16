@@ -17,6 +17,7 @@
     "bootstrap-icons": "^1.7.0",
     "emotion": "^11.0.0",
     "history": "^5.0.0",
+    "jwt-decode": "^3.1.2",
     "node-sass": "^6.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -26,8 +27,6 @@
     "react-router-dom": "^6.0.0-beta.8",
     "react-scripts": "4.0.3",
     "reactstrap": "^9.0.0",
-    "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.4.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
