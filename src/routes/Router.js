@@ -1,4 +1,5 @@
 import { lazy } from "react";
+//import New from "../pages/New";
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -15,10 +16,18 @@ const Grid = lazy(() => import("../views/ui/Grid"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
-
+const New = lazy(() => import("../pages/New"));
 /*****Routes******/
 const ThemeRoutes = [
   { path: "/", exact: true, element: <SignIn /> },
+
+  
+   { path: "/users", exact: true, element: <Users /> 
+    ,
+    children: [
+      { path: "/new", exact: true, element: <New /> },
+    ]},
+
   {
     path: "/",
     exact: true,
@@ -26,7 +35,7 @@ const ThemeRoutes = [
     children: [
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
-      { path: "/users", exact: true, element: <Users /> },
+   
       { path: "/badges", exact: true, element: <Badges /> },
       { path: "/buttons", exact: true, element: <Buttons /> },
       { path: "/cards", exact: true, element: <Cards /> },
