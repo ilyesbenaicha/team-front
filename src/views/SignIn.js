@@ -47,28 +47,6 @@ useEffect(()=>{
   const handleSubmit = async(event) => {
     event.preventDefault();
     dispatch(loginUser(user))
-// try {
-//   const response = await axios.post(LOGIN_URL,
-//    JSON.stringify({email,password}),{
-//     headers : {'Content-Type' : 'application/json'},
-//     withCredentails: true
-//    } )
-//    console.log(JSON.stringify(response?.data))
-//    const Token = response?.data;
-//    if (authCtx.isLoggedIn()) {
-//     return <Navigate to ="/starter"/>
-//    }
-//    console.log(Token)
-//    console.log( location());
-//   } catch (error) {
-//   if (!error?.response) {
-//       console.log("******errr No server response ")
-//   }else if(error.response?.status === 400){
-//     console.log('missing email or password');
-//   }else if(error.response?.status === 401){
-//     console.log('Unauthorized');
-//   }
-// }
   };
 
   return (
