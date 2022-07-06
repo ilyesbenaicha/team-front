@@ -21,13 +21,6 @@ const New = lazy(() => import("../pages/New"));
 const ThemeRoutes = [
   { path: "/", exact: true, element: <SignIn /> },
 
-  
-   { path: "/users", exact: true, element: <Users /> 
-    ,
-    children: [
-      { path: "/new", exact: true, element: <New /> },
-    ]},
-
   {
     path: "/",
     exact: true,
@@ -35,7 +28,8 @@ const ThemeRoutes = [
     children: [
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
-   
+      { path: "/users", exact: true, element: <Users /> },
+  
       { path: "/badges", exact: true, element: <Badges /> },
       { path: "/buttons", exact: true, element: <Buttons /> },
       { path: "/cards", exact: true, element: <Cards /> },

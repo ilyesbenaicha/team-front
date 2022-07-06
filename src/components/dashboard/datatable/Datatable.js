@@ -16,11 +16,10 @@ function Datatable() {
     return (
         
         <div style={{ height: 400, width: '100%' }}>
+      
             <div className="datatableTitle">
-            ADD New User
-<Link to="/new"style={{textDecoration: "none"}}>
-Add New
-</Link>
+        <Link to="/users/new"> New user</Link>
+          
             </div>
           <DataGrid
             rows={Usersrows}
