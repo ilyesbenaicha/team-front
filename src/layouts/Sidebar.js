@@ -1,6 +1,15 @@
 import { Button, Nav, NavItem } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
+import jwt from 'jwt-decode';
+import { useState } from "react";
 
+const token = localStorage.getItem("token");
+console.log("token",token);
+const user = jwt(token);
+console.log("sssssssss",user);
+if(user.role ==="admin"){
+  
+}
 const navigation = [
   {
     title: "Dashboard",
@@ -13,8 +22,8 @@ const navigation = [
     icon: "bi bi-person-square",
   },
   {
-    title: "Badges",
-    href: "/badges",
+    title: "Tasks",
+    href: "/Tasks",
     icon: "bi bi-patch-check",
   },
   {
@@ -49,11 +58,36 @@ const navigation = [
   },
 ];
 
+const UserNavigation= [
+  {
+    title: "Dashboard",
+    href: "/starter",
+    icon: "bi bi-speedometer2",
+  },
+  
+  {
+    title: "Tasks",
+    href: "/Tasks",
+    icon: "bi bi-patch-check",
+  },
+  {
+    title: "Buttons",
+    href: "/buttons",
+    icon: "bi bi-hdd-stack",
+  },
+ 
+ 
+  
+ 
+
+];
+
 const Sidebar = () => {
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
   let location = useLocation();
+
 
   return (
     <div className="bg-dark">
@@ -68,7 +102,7 @@ const Sidebar = () => {
       </div>
       <div className="p-3 mt-2">
         <Nav vertical className="sidebarNav">
-          {navigation.map((navi, index) => (
+        {user.role==="SuperAdmin" ?<div>{navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
               <Link
                 to={navi.href}
@@ -82,7 +116,25 @@ const Sidebar = () => {
                 <span className="ms-3 d-inline-block">{navi.title}</span>
               </Link>
             </NavItem>
-          ))}
+          ))}</div>
+           : 
+           <div>{UserNavigation.map((navi, index) => (
+            <NavItem key={index} className="sidenav-bg">
+              <Link
+                to={navi.href}
+                className={
+                  location.pathname === navi.href
+                    ? "active nav-link py-3"
+                    : "nav-link py-3"
+                }
+              >
+                <i className={navi.icon}></i>
+                <span className="ms-3 d-inline-block">{navi.title}</span>
+              </Link>
+            </NavItem>
+          ))}</div>
+           }
+          
         </Nav>
       </div>
     </div>

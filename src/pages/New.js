@@ -39,13 +39,12 @@ const New = ({ inputs, title }) => {
                   style={{ display: "none" }}
                 />
               </div>
+<div className="form-group">
 
-              {inputs.map((input) => (
-                <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
-                  <input type={input.type} placeholder={input.placeholder} />
-                </div>
-              ))}
+<label className="col-sm-2 control-label">Upload  filesize  (in bytes)</label>
+<input className="form-control" id="uploadSize    (in bytes)" style={{ display: "none" }}  />
+</div>
+             
               <button>Send</button>
             </form>
           </div>

@@ -4,7 +4,7 @@ import user3 from "../src/assets/images/users/user3.jpg";
 import user4 from "../src/assets/images/users/user4.jpg";
 import user5 from "../src/assets/images/users/user5.jpg";
 export const userColumns = [
-    { field: 'id', headerName: 'ID', width: 100 },
+    // { field: 'id', headerName: 'ID', width: 100 },
     { field: 'User', headerName: 'User', width: 250, renderCell : (params)=>{
         return(
             <div className="cellWithImg">

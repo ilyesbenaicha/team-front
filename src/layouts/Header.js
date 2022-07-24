@@ -1,5 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import {
   Navbar,
   Collapse,
@@ -11,7 +13,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Dropdown,
-  Button,
+  Button
 } from "reactstrap";
 import Logo from "./Logo";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/adminprowhite.svg";
@@ -19,6 +21,7 @@ import user1 from "../assets/images/users/user4.jpg";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
@@ -29,6 +32,12 @@ const Header = () => {
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
+
+  function logout() {
+    // localStorage.clear();
+    navigate("/login");
+  }
+
   return (
     <Navbar color="white" light expand="md" className="fix-header">
       <div className="d-flex align-items-center">
@@ -64,9 +73,9 @@ const Header = () => {
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
           <NavItem>
-            <Link to="/starter" className="nav-link">
+            {/* <Link to="/starter" className="nav-link">
               Starter
-            </Link>
+            </Link> */}
           </NavItem>
           <NavItem>
             <Link to="/about" className="nav-link">
@@ -101,7 +110,14 @@ const Header = () => {
             <DropdownItem divider />
             <DropdownItem>My Balance</DropdownItem>
             <DropdownItem>Inbox</DropdownItem>
-            <DropdownItem>Logout</DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                logout();
+              }}
+            >
+              {/* <Navigate to="/" replace={true} /> */}
+              Logoutttttttttt
+            </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </Collapse>
