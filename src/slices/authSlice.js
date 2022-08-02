@@ -26,7 +26,7 @@ return {
 })
 builder.addCase(loginUser.fulfilled,(state,action)=>{
     if (action.payload) {
-const user = jwtDecode(action.payload.token)
+let user = jwtDecode(action.payload.token)
         return {
             ...state,
             token: action.payload.token,
@@ -53,7 +53,7 @@ export const loginUser = createAsyncThunk(
     "auth/loginUser",
     async (user,{rejectWithValue})=>{
         try {
-            const token = await axios.post('http://localhost:5000/api/user/Login',{
+            const token = await axios.post('http://localhost:5000/api/user/login',{
                 email : user.email,
                 password : user.password,
                 role : user.role

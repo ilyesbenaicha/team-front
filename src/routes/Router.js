@@ -15,6 +15,7 @@ const Cards = lazy(() => import("../views/ui/Cards"));
 const Grid = lazy(() => import("../views/ui/Grid"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
+const Calendar = lazy(()=> import("../views/ui/Calendar"))
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const New = lazy(() => import("../pages/New"));
 /*****Routes******/
@@ -29,9 +30,9 @@ const ThemeRoutes = [
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
       { path: "/users", exact: true, element: <Users /> },
-  
+      
       { path: "/tasks", exact: true, element: <Tasks /> },
-      { path: "/buttons", exact: true, element: <Buttons /> },
+      { path: "/calendar", exact: true, element: <Calendar /> },
       { path: "/cards", exact: true, element: <Cards /> },
       { path: "/grid", exact: true, element: <Grid /> },
       { path: "/table", exact: true, element: <Tables /> },

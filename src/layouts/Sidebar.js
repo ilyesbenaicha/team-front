@@ -1,15 +1,18 @@
 import { Button, Nav, NavItem } from "reactstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import jwt from 'jwt-decode';
 import { useState } from "react";
 
-const token = localStorage.getItem("token");
-console.log("token",token);
-const user = jwt(token);
-console.log("sssssssss",user);
-if(user.role ==="admin"){
+// const token = localStorage.getItem("token");
+// if( token == null) {
+// console.log('token null aaaa',token)
+// }
+// console.log("token",token);
+// const user = jwt(token);
+// console.log("sssssssss",user);
+// if(user.role ==="admin"){
   
-}
+// }
 const navigation = [
   {
     title: "Dashboard",
@@ -71,8 +74,8 @@ const UserNavigation= [
     icon: "bi bi-patch-check",
   },
   {
-    title: "Buttons",
-    href: "/buttons",
+    title: "Calendar",
+    href: "/calendar",
     icon: "bi bi-hdd-stack",
   },
  
@@ -83,6 +86,11 @@ const UserNavigation= [
 ];
 
 const Sidebar = () => {
+  // const navigate = useNavigate();
+  // if( token == null) {
+  //   console.log('token null aaaa',token)
+  //   navigate("/");
+  //   }
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
@@ -102,7 +110,7 @@ const Sidebar = () => {
       </div>
       <div className="p-3 mt-2">
         <Nav vertical className="sidebarNav">
-        {user.role==="SuperAdmin" ?<div>{navigation.map((navi, index) => (
+        {/* {user.role==="SuperAdmin" ?<div>{navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
               <Link
                 to={navi.href}
@@ -116,7 +124,7 @@ const Sidebar = () => {
                 <span className="ms-3 d-inline-block">{navi.title}</span>
               </Link>
             </NavItem>
-          ))}</div>
+          ))}</div> */}
            : 
            <div>{UserNavigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
