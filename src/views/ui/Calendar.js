@@ -1,19 +1,33 @@
-import React, { useState } from 'react'
-import { getMonth } from '../../util'
-import CalendarHeader from '../../components/Calendar/CalendarHeader'
-import SidebarCalendar from '../../components/Calendar/SidebarCalendar'
-import Month from '../../components/Calendar/Month'
-export default function Calendar() {
-    const [currentMonth, setCurrentMonth] = useState(getMonth())
+import React, { Component } from 'react';
+import { Segment, Grid, Divider } from 'semantic-ui-react';
+import DateRange from '../../components/Calendar/DateRange';
+import FullCalendar from '../../components/Calendar/FullCalendar';
+import TimePicker from '../../components/Calendar/TimePicker';
+import './Calendar.css';
 
-  return (
-    <React.Fragment>
-        <div className='h-screen flex flex-columns'></div>
-    <CalendarHeader/>
-    <div className='flex flex-1'>
-    <SidebarCalendar/>
-    <Month month ={currentMonth}/>
-    </div>
-    </React.Fragment>
-  )
+class Calendar extends Component {
+  render() {
+    return (
+      <Grid>
+        <Grid.Row>
+          <Grid.Column width={8}>
+            <Segment>
+              <p>Date Picker</p>
+              <DateRange />
+              <Divider hidden/>
+              <p>Time Picker</p>
+              <TimePicker/>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={8}>
+            <Segment>
+              <FullCalendar />
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    );
+  }
 }
+
+export default Calendar;
