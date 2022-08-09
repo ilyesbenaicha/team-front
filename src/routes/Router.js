@@ -9,7 +9,7 @@ const SignIn = lazy (()=> import("../views/SignIn"))
 const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
 const Users = lazy(() => import("../views/ui/Users"));
-const Tasks = lazy(() => import("../views/ui/Tasks"));
+const Task = lazy(() => import("../views/ui/Task"));
 const Buttons = lazy(() => import("../views/ui/Buttons"));
 const Cards = lazy(() => import("../views/ui/Cards"));
 const Grid = lazy(() => import("../views/ui/Grid"));
@@ -31,7 +31,7 @@ const ThemeRoutes = [
       { path: "/about", exact: true, element: <About /> },
       { path: "/users", exact: true, element: <Users /> },
       
-      { path: "/tasks", exact: true, element: <Tasks /> },
+      { path: "/tasks", exact: true, element: <Task /> },
       { path: "/calendar", exact: true, element: <Calendar /> },
       { path: "/cards", exact: true, element: <Cards /> },
       { path: "/grid", exact: true, element: <Grid /> },
