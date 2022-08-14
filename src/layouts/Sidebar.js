@@ -1,19 +1,19 @@
 import { Button, Nav, NavItem } from "reactstrap";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import jwt from 'jwt-decode';
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 // const token = localStorage.getItem("token");
-// if( token == null) {
-// console.log('token null aaaa',token)
-// }
-// console.log("token",token);
-// const user = jwt(token);
-// console.log("sssssssss",user);
-// if(user.role ==="admin"){
+//  if( token == null) {
+//  console.log('token null aaaa',token)
+//  }
+//  console.log("token",token);
+//  const user = jwt(token);
+//  console.log("sssssssss",user);
+//  if(user.role ==="admin"){
   
-// }
-const navigation = [
+//  }
+
+
+const UserNavigation= [
   {
     title: "Dashboard",
     href: "/starter",
@@ -45,6 +45,11 @@ const navigation = [
     icon: "bi bi-columns",
   },
   {
+    title:"Project",
+    href : "/project",
+    icon: "bi bi-folder",
+  },
+  {
     title: "Table",
     href: "/table",
     icon: "bi bi-layout-split",
@@ -59,37 +64,15 @@ const navigation = [
     href: "/breadcrumbs",
     icon: "bi bi-link",
   },
-];
-
-const UserNavigation= [
-  {
-    title: "Dashboard",
-    href: "/starter",
-    icon: "bi bi-speedometer2",
-  },
-  
-  {
-    title: "Tasks",
-    href: "/Tasks",
-    icon: "bi bi-patch-check",
-  },
-  {
-    title: "Calendar",
-    href: "/calendar",
-    icon: "bi bi-hdd-stack",
-  },
- 
- 
-  
  
 
 ];
 
 const Sidebar = () => {
-  // const navigate = useNavigate();
-  // if( token == null) {
-  //   console.log('token null aaaa',token)
-  //   navigate("/");
+  //  const navigate = useNavigate();
+  //  if( token == null) {
+  //    console.log('token null aaaa',token)
+  //    navigate("/");
   //   }
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
@@ -110,7 +93,7 @@ const Sidebar = () => {
       </div>
       <div className="p-3 mt-2">
         <Nav vertical className="sidebarNav">
-        {/* {user.role==="SuperAdmin" ?<div>{navigation.map((navi, index) => (
+        {/* {user.role ==="SuperAdmin" ?<div>{navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
               <Link
                 to={navi.href}
@@ -124,7 +107,7 @@ const Sidebar = () => {
                 <span className="ms-3 d-inline-block">{navi.title}</span>
               </Link>
             </NavItem>
-          ))}</div> */}
+          ))}</div>  */}
            : 
            <div>{UserNavigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
@@ -141,7 +124,7 @@ const Sidebar = () => {
               </Link>
             </NavItem>
           ))}</div>
-           }
+           
           
         </Nav>
       </div>

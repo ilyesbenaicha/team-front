@@ -1,8 +1,5 @@
-import { DataGrid } from "@mui/x-data-grid";
 import "../datatable/datatable.scss";
-import { userColumns } from "../../../datatablesource";
-import { Usersrows } from "../../../datatablesource";
-import { Link } from "react-router-dom";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card, CardBody, CardSubtitle, CardTitle, Table } from "reactstrap";
@@ -17,22 +14,22 @@ function Datatable() {
   }, []);
 
   console.log("users", users);
-  const actionColumn = [
-    {
-      field: "action",
-      headerName: "Action",
-      width: 200,
-      renderCell: () => {
-        return (
-          <div className="cellAction">
-            <div className="viewButton">View</div>
+  // const actionColumn = [
+  //   {
+  //     field: "action",
+  //     headerName: "Action",
+  //     width: 200,
+  //     renderCell: () => {
+  //       return (
+  //         <div className="cellAction">
+  //           <div className="viewButton">View</div>
 
-            <div className="DeleteButton">Delete</div>
-          </div>
-        );
-      }
-    }
-  ];
+  //           <div className="DeleteButton">Delete</div>
+  //         </div>
+  //       );
+  //     }
+  //   }
+ // ];
   return (
     // <div style={{ height: 400, width: "100%" }}>
     //   <div className="datatableTitle">
