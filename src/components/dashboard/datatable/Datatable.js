@@ -65,7 +65,7 @@ function Datatable() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {users?.map((user, index) => (
               <tr key={index} className="border-top">
                 <td>
                   <div className="d-flex align-items-center p-2">

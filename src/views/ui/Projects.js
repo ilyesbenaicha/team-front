@@ -35,19 +35,19 @@ export default function Projects() {
 
 	return (
         <Container>
-        <Row className='col-sm-15'>
+        <Row>
         <Col>
-		<Box className="MainForm">
+		
 			<Grid
 				container
 				spacing={0}
 				margin={0}
-				columns={16}
+				columns={12}
 				zeroMinWidth={0}
 				sx={{ background: '#fff' }}>
                   <CardTitle tag="h6" className="border-bottom p-3 mb-0"> Project</CardTitle>
                                                                            
-				<Grid item md={8} xs={16}>
+				<Grid item md={8} xs={12}>
 					<Item spacing={5}>
 					
 						<TextField
@@ -134,10 +134,10 @@ export default function Projects() {
 				</Grid>
 
  			</Grid>
-		</Box>
+	
         </Col>
        
-        <Col xs="6" sm="4">
+        <Col>
         <Scrollbars style={{ width: 300, height: 300 }}>
         <p>Some great content...</p>
         <p>Some great content...</p>
@@ -152,12 +152,7 @@ export default function Projects() {
         <p>Some great content...</p>
         <p>Some great content...</p>
       </Scrollbars>
-              
-              </Col></Row>
-              
-						<Button sx={{ margin: '10px auto 10px auto' }} variant="contained">
-							Save
-						</Button>
-       </Container>
+       </Col></Row>
+     </Container>
 	);
 }
