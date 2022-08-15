@@ -12,7 +12,7 @@ export default function Example() {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+       Add
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -29,13 +29,25 @@ export default function Example() {
                 autoFocus
               />
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="Name"
+                autoFocus
+              />
             </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Tel</Form.Label>
+              <Form.Control
+                type="Tel"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Select className="mb-3" aria-label="Default select example">
+       
+                <option value="1">Admin</option>
+                <option value="2">User</option>
+            </Form.Select>
           </Form>
         </Modal.Body>
         <Modal.Footer>

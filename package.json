@@ -29,6 +29,7 @@
     "react": "^17.0.2",
     "react-apexcharts": "^1.3.9",
     "react-big-calendar": "^1.5.0",
+    "react-bootstrap": "^2.5.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-datepicker": "^4.8.0",
     "react-dnd": "^11.1.3",

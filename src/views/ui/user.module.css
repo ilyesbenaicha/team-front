@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100vh;
+    width: 75vw;
+  }
+
+  .wrapper {
+    width: 100%;
+    
+  }

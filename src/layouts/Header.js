@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React,{useEffect} from "react";
+import { Link, useNavigate } from "react-router-dom";
 
+import { useDispatch,useSelector } from "react-redux";
 import {
   Navbar,
   Collapse,
@@ -18,11 +18,19 @@ import {
 import Logo from "./Logo";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/adminprowhite.svg";
 import user1 from "../assets/images/users/user4.jpg";
+import { logout } from "../slices/authSlice";
 
 const Header = () => {
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = React.useState(false);
-  const navigate = useNavigate();
-
+  const {loginStatus}=useSelector(state=>state.auth)
+  useEffect(()=>{
+    if (loginStatus!=="success") {
+      navigate("/")
+    }
+  },[loginStatus,navigate]
+  )
+ const dispatch = useDispatch();
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -33,9 +41,8 @@ const Header = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
 
-  function logout() {
-    // localStorage.clear();
-    navigate("/login");
+  function logoutUser() {
+  dispatch(logout())
   }
 
   return (
@@ -112,11 +119,11 @@ const Header = () => {
             <DropdownItem>Inbox</DropdownItem>
             <DropdownItem
               onClick={() => {
-                logout();
+                logoutUser();
               }}
             >
-              {/* <Navigate to="/" replace={true} /> */}
-              Logoutttttttttt
+             
+              Logout
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

@@ -15,7 +15,15 @@ const authSlice = createSlice({
     name : "auth",
     initialState,
     reducers:{
-
+logout:(state)=>{
+    localStorage.removeItem("token")
+    state.token = null
+     state.loginStatus = ""
+     state.email= null
+     state.password= null
+     state.role = null
+ 
+}
     },
     extraReducers:(builder) =>{
 builder.addCase(loginUser.pending,(state)=>{
@@ -49,6 +57,7 @@ builder.addCase(loginUser.rejected,(state,action)=>{
     
 });
 export default authSlice.reducer
+export const {logout}=authSlice.actions
 export const loginUser = createAsyncThunk(
     "auth/loginUser",
     async (user,{rejectWithValue})=>{

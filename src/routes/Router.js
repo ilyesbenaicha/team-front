@@ -22,7 +22,7 @@ const Projects= lazy(()=> import("../views/ui/Projects"))
 /*****Routes******/
 const ThemeRoutes = [
   { path: "/login", exact: true, element: <SignIn /> },
-
+  {path: "/", exact: true, element: <SignIn/>},
   {
     path: "/",
     exact: true,

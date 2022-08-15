@@ -77,7 +77,7 @@ function Datatable() {
                       height="45"
                     /> */}
                     <div className="ms-3">
-                      <h6 className="mb-0">{index+1}</h6>
+                      <h6 className="mb-0">{user._id}</h6>
                       {/* <span className="text-muted">{user.email}</span> */}
                     </div>
                   </div>
