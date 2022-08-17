@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import { Col, Container, Row } from 'reactstrap';
 
 export default function Example() {
   const [show, setShow] = useState(false);
@@ -15,12 +16,15 @@ export default function Example() {
        Add
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal 	size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add New User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+       <Container>
+          <Form> 
+          <Row>
+          <Col lg="4">
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -30,32 +34,59 @@ export default function Example() {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>First Name</Form.Label>
               <Form.Control
-                type="Name"
+                type="FName"
+                autoFocus
+              />
+            </Form.Group>
+            
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                type="LName"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Address</Form.Label>
+              <Form.Control
+                type="Address"
+                autoFocus
+              />
+            </Form.Group>
+            </Col>
+            <Col lg="4">  
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Department</Form.Label>
+              <Form.Control
+                type="Department"
                 autoFocus
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Tel</Form.Label>
               <Form.Control
-                type="Tel"
+                type="tel"
+                placeholder="+216"
                 autoFocus
+                
               />
             </Form.Group>
             <Form.Select className="mb-3" aria-label="Default select example">
        
                 <option value="1">Admin</option>
                 <option value="2">User</option>
-            </Form.Select>
+            </Form.Select></Col></Row>
           </Form>
+          </Container>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+           Submit
           </Button>
         </Modal.Footer>
       </Modal>
