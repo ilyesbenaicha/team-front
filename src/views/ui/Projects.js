@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col, Row } from 'reactstrap';
+import DropDown from '../../components/DropDown/DropDown';
 
 
 export default function Projects() {
@@ -46,8 +47,8 @@ console.log(project);
 <Col>
 <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
 	</Col>
-
-		  		
+<Col>
+<DropDown/></Col>
 		<Button variant="primary" >
            Submit
           </Button></Col>

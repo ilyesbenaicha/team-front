@@ -1,6 +1,9 @@
+import { Button } from "@material-ui/core";
 import React, { useRef, useState } from "react";
+import { Form } from "react-bootstrap";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import Addtasks from "./Addtasks";
 import { COLUMN_NAMES } from "./constants";
 import { features } from "./features";
 
@@ -25,7 +28,7 @@ const MovableItem = ({
   };
 
   const ref = useRef(null);
-
+  
   const [, drop] = useDrop({
     accept: "Our first type",
     hover(item, monitor) {
@@ -197,6 +200,8 @@ export const Tasks = () => {
   const { DO_IT, IN_PROGRESS, AWAITING_REVIEW, DONE } = COLUMN_NAMES;
 
   return (
+    <>
+    <Addtasks/>
     <div className="container">
       <DndProvider backend={HTML5Backend}>
         <Column title={DO_IT} className="column do-it-column">
@@ -215,6 +220,6 @@ export const Tasks = () => {
           {returnItemsForColumn(DONE)}
         </Column>
       </DndProvider>
-    </div>
+    </div></>
   );
 };
