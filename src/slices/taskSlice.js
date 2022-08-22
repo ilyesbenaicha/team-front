@@ -1,9 +1,7 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"; 
-import baseUrl from "../api/URL"
-
 const   initialState={
-        todos:[],
+    tasks:[],
         addTodoStatus: "",
         addtodoError: "",
         getTodoStatus: "",
@@ -13,11 +11,12 @@ const   initialState={
         deletTodoStatus: "",
         delettodoError: "",
     };
-    export const todoAdd = createAsyncThunk("todos/todoAdd",
-    async(todo,{rejctWithValue})=>{
+    export const addTask = createAsyncThunk("tasks/addTask",
+    async(task,{rejctWithValue})=>{
         try {
-          const response=  await axios.post(baseUrl + "/api/task" ,todo )
+          const response=  await axios.post('http://localhost:5000/api/task/',task )
           return response.data
+
         } catch (error) {
             console.log(error);
             return rejctWithValue(error.response.data)
@@ -26,11 +25,11 @@ const   initialState={
 
     })
 const taskSlice = createSlice({
-    name:"todos",
+    name:"tasks",
     initialState,
     reducers:{},
     extraReducers:{
-        [todoAdd.pending]:(state,action)=>{
+        [addTask.pending]:(state,action)=>{
             return {
                 ...state,
                 addTodoStatus: "pending",
@@ -43,7 +42,7 @@ const taskSlice = createSlice({
                 delettodoError: "",
             }
         },
-        [todoAdd.fulfilled]:(state,action)=>{
+        [addTask.fulfilled]:(state,action)=>{
             return {
                 ...state,
                 todos:[action.payload,...state.todos],
@@ -57,7 +56,7 @@ const taskSlice = createSlice({
                 delettodoError: "",
             }
         },
-        [todoAdd.rejected]:(state,action)=>{
+        [addTask.rejected]:(state,action)=>{
             return {
                 ...state,
                 addTodoStatus: "rejected",
