@@ -21,8 +21,8 @@ export default function Example() {
           <Modal.Title>Add New User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-       <Container>
-          <Form> 
+       <Container fluid="md">
+          <Form > 
           <Row>
           <Col lg="4">
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">

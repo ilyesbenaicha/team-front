@@ -15,7 +15,7 @@ const Cards = lazy(() => import("../views/ui/Cards"));
 const Grid = lazy(() => import("../views/ui/Grid"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
-const Calendar = lazy(()=> import("../views/ui/Calendar"))
+const Calendars = lazy(()=> import("../views/ui/Calendars"))
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const New = lazy(() => import("../pages/New"));
 const Projects= lazy(()=> import("../views/ui/Projects"))
@@ -33,7 +33,7 @@ const ThemeRoutes = [
       { path: "/users", exact: true, element: <Users /> },
       {path: "/project",exact:true , element:<Projects/>},
       { path: "/tasks", exact: true, element: <Task /> },
-      { path: "/calendar", exact: true, element: <Calendar /> },
+      { path: "/calendar", exact: true, element: <Calendars /> },
       { path: "/cards", exact: true, element: <Cards /> },
       { path: "/grid", exact: true, element: <Grid /> },
       { path: "/table", exact: true, element: <Tables /> },

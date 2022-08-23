@@ -10,7 +10,7 @@ function Addtasks() {
     description: "",
     etat : ""
   });
-  console.log("task=", task);
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addTask(task));
@@ -18,7 +18,8 @@ function Addtasks() {
       title: "",
       description: "",
       etat:""
-    });
+    }); 
+    console.log("task=", task);
   };
   return (
     <>
