@@ -1,11 +1,11 @@
-import { Button } from "@material-ui/core";
-import React, { useRef, useState } from "react";
-import { Form } from "react-bootstrap";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { Col } from "react-bootstrap";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { Row } from "reactstrap";
 import Addtasks from "./Addtasks";
 import { COLUMN_NAMES } from "./constants";
-import { features } from "./features";
 
 import "./tasks.css";
 
@@ -14,10 +14,10 @@ const MovableItem = ({
   index,
   currentColumnName,
   moveCardHandler,
-  setItems
+  setTasks
 }) => {
   const changeItemColumn = (currentItem, columnName) => {
-    setItems((prevState) => {
+    setTasks((prevState) => {
       return prevState.map((e) => {
         return {
           ...e,
@@ -122,9 +122,9 @@ const Column = ({ children, className, title }) => {
       canDrop: monitor.canDrop()
     }),
     // Override monitor.canDrop() function
-    canDrop: (item) => {
+    canDrop: (task) => {
       const { DO_IT, IN_PROGRESS, AWAITING_REVIEW, DONE } = COLUMN_NAMES;
-      const { currentColumnName } = item;
+      const { currentColumnName } = task.etat;
       return (
         currentColumnName === title ||
         (currentColumnName === DO_IT && title === IN_PROGRESS) ||
@@ -162,13 +162,22 @@ const Column = ({ children, className, title }) => {
 };
 
 export const Tasks = () => {
-  const [items, setItems] = useState(features);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/task/",{
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    }).then((res) => {
+      console.log("res", res);
+      setTasks(res.data);
+    });
+  }, []);
 
   const moveCardHandler = (dragIndex, hoverIndex) => {
-    const dragItem = items[dragIndex];
+    const dragItem = tasks[dragIndex];
 
     if (dragItem) {
-      setItems((prevState) => {
+      setTasks((prevState) => {
         const coppiedStateArray = [...prevState];
 
         // remove item by "hoverIndex" and put "dragItem" instead
@@ -183,14 +192,14 @@ export const Tasks = () => {
   };
 
   const returnItemsForColumn = (columnName) => {
-    return items
-      .filter((item) => item.column === columnName)
-      .map((item, index) => (
+    return tasks
+     .filter((task) => task.etat === columnName)
+      .map((task, index) => (
         <MovableItem
-          key={item.id}
-          name={item.name}
-          currentColumnName={item.column}
-          setItems={setItems}
+          key={task.id}
+          name={task.title}
+          currentColumnName={task.etat}
+          setTasks={setTasks}
           index={index}
           moveCardHandler={moveCardHandler}
         />
@@ -201,7 +210,10 @@ export const Tasks = () => {
 
   return (
     <>
-    <Addtasks/>
+    <Row>
+    <Col xs lg="3">
+    <Addtasks/></Col>
+    <Col md="auto">
     <div className="container">
       <DndProvider backend={HTML5Backend}>
         <Column title={DO_IT} className="column do-it-column">
@@ -220,6 +232,6 @@ export const Tasks = () => {
           {returnItemsForColumn(DONE)}
         </Column>
       </DndProvider>
-    </div></>
+    </div></Col></Row></>
   );
 };

@@ -37,17 +37,12 @@ const UserNavigation= [
   {
     title: "Tasks",
     href: "/Tasks",
-    icon: "bi bi-patch-check",
+    icon: "bi bi-list-task",
   },
   {
     title: "Calendar",
     href: "/calendar",
-    icon: "bi bi-hdd-stack",
-  },
-  {
-    title: "Buttons",
-    href: "/buttons",
-    icon: "bi bi-hdd-stack",
+    icon: "bi bi-calendar",
   },
   {
     title: "Cards",

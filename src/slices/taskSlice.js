@@ -2,6 +2,7 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"; 
 const   initialState={
     tasks:[],
+    token : localStorage.getItem("token"),
         addTodoStatus: "",
         addtodoError: "",
         getTodoStatus: "",
@@ -12,17 +13,31 @@ const   initialState={
         delettodoError: "",
     };
     export const addTask = createAsyncThunk("tasks/addTask",
-    async(task,{rejctWithValue})=>{
+    async(task,{rejectWithValue})=>{
         try {
-          const response=  await axios.post('http://localhost:5000/api/task/',task )
+          const response=  await axios.post('http://localhost:5000/api/task/',task,{
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
           return response.data
 
         } catch (error) {
             console.log(error);
-            return rejctWithValue(error.response.data)
+            return rejectWithValue(error.response.data)
         }
         
 
+    })
+    export const getTask = createAsyncThunk('http://localhost:5000/api/task/',async(id=null,{rejectWithValue})=>{
+        try {
+            const response=  await axios.post('http://localhost:5000/api/task/',{
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            })
+              return response.data
+    
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue(error.response.data)
+        }
     })
 const taskSlice = createSlice({
     name:"tasks",
@@ -45,7 +60,7 @@ const taskSlice = createSlice({
         [addTask.fulfilled]:(state,action)=>{
             return {
                 ...state,
-                todos:[action.payload,...state.todos],
+                tasks:[action.payload,...state.tasks],
                 addTodoStatus: "success",
                 addtodoError: "",
                 getTodoStatus: "",

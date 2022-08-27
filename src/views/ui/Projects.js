@@ -1,4 +1,4 @@
-import  React from 'react';
+import  React, { useEffect } from 'react';
 import { useState } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col, Row } from 'reactstrap';
-import DropDown from '../../components/DropDown/DropDown';
+import axios from 'axios';
 
 
 export default function Projects() {
@@ -14,7 +14,14 @@ export default function Projects() {
 	const [endDate, setEndDate] = useState(new Date());
 	console.log ("start",startDte)
 	console.log ("end",endDate)
+  const [users, setUsers] = useState([]);
 
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/user/getAll").then((res) => {
+      console.log("res", res);
+      setUsers(res.data);
+    });
+  }, []);
 	const [project,setProject] = useState({
 		title : "",
 		startDte ,
@@ -57,8 +64,8 @@ console.log(project);
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formGridAddress2">
-        <Form.Label>Address 2</Form.Label>
-        <Form.Control placeholder="Apartment, studio, or floor" />
+        <Form.Label>technology</Form.Label>
+        <Form.Control/>
       </Form.Group>
 
       <Row className="mb-3">
@@ -66,19 +73,19 @@ console.log(project);
           <Form.Label>City</Form.Label>
           <Form.Control />
         </Form.Group>
-
+    
         <Form.Group as={Col} controlId="formGridState">
-          <Form.Label>State</Form.Label>
-          <Form.Select defaultValue="Choose...">
-            <option>Choose...</option>
-            <option>...</option>
+          <Form.Label>admin</Form.Label> <Form.Select defaultValue="Choose...">
+          {users.map((el)=>(
+           
+            <option>{el.name}</option>
+    
+          
+          ))}
           </Form.Select>
         </Form.Group>
 
-        <Form.Group as={Col} controlId="formGridZip">
-          <Form.Label>Zip</Form.Label>
-          <Form.Control />
-        </Form.Group>
+       
       </Row>
       <Button variant="primary" type="submit">
         Submit

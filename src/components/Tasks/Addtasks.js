@@ -1,14 +1,25 @@
-import { Button } from "@mui/material";
+import { Alert, Button, CircularProgress, FormGroup } from "@mui/material";
 import React, { useState } from "react";
-import { Form } from "reactstrap";
-import { useDispatch } from "react-redux";
+import { Col, Row } from "reactstrap";
+import { useDispatch,useSelector } from "react-redux";
 import { addTask } from "../../slices/taskSlice";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Form from 'react-bootstrap/Form';
 function Addtasks() {
+  const [startDte, setDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(new Date());
+	console.log ("start",startDte)
+	console.log ("end",endDate)
+  const taskState = useSelector((state)=>state.tasks)
+ console.log(taskState);
   const dispatch = useDispatch();
   const [task, setTask] = useState({
     title: "",
     description: "",
-    etat : ""
+    etat : "",
+    startDte ,
+    endDate
   });
  
   const handleSubmit = (e) => {
@@ -17,33 +28,52 @@ function Addtasks() {
     setTask({
       title: "",
       description: "",
-      etat:""
+      etat:"",
+      start_date: startDte,
+      end_date: endDate
     }); 
     console.log("task=", task);
   };
   return (
     <>
-      <Form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter a title"
-          value={task.title}
+    
+      <Form onSubmit={handleSubmit}><Row>
+      <Form.Group controlId="formGridEmail">
+          <Form.Label>title</Form.Label>
+          <Form.Control
+           value={task.title}
           onChange={(e) => setTask({ ...task, title: e.target.value })}
-        />
-        <br />
-        <input
-          type="text"
-          placeholder="Enter a description"
-          value={task.description}
-          onChange={(e) => setTask({ ...task, description: e.target.value })}
-        />
+           type="text" placeholder="Enter title" />
+        </Form.Group>
+       
         <br/>
-        <input
-          type="text"
-          placeholder="Enter a description"
-          value={task.etat}
-          onChange={(e) => setTask({ ...task, etat: e.target.value })}
-        />
+        <Form.Group  controlId="exampleForm.">
+          <Form.Label>description</Form.Label>
+          <Form.Control  type="text"  
+           value={task.description}
+          onChange={(e) => setTask({ ...task, description: e.target.value })} />
+        </Form.Group>
+       
+    <br/>
+        <FormGroup>
+        <Form.Label>Start Date</Form.Label>
+        <DatePicker
+                selected={startDte}
+                onChange={(date) => setDate(date)}
+                selectsStart
+                startDate={startDte}
+                endDate={endDate}
+            />
+                 <Form.Label>End Date</Form.Label>
+            <DatePicker	
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                selectsEnd
+                startDate={startDte}
+                endDate={endDate}
+                minDate={startDte}
+            />
+            </FormGroup>
         <Button
           type="submit"
           variant="contained"
@@ -53,9 +83,18 @@ function Addtasks() {
             fonFamily: "'Abel','sanSerif'"
           }}
         >
-          Add task
-        </Button>
-      </Form>
+{
+ taskState.addTodoStatus === "pending" ?(
+  <CircularProgress size={24} color = "secondary"/>
+ ): "Add Task"
+}        </Button>
+          {taskState.addTodoStatus === "rejected" ? (
+            <Alert severity="error">{taskState.addtodoError}</Alert>
+          ): null}
+          {taskState.addTodoStatus === "success" ? (
+            <Alert severity="success">Task Added ...</Alert>
+          ): null}
+     </Row> </Form>
     </>
   );
 }

@@ -16,7 +16,7 @@ const Users = () => {
   return (
     <main className={styles.container}>
     <div className={styles.wrapper}>
- <Table data={users} rowsPerPage={10}/>
+    <Table data={users} rowsPerPage={10}/>
     </div>
     </main>
   );
