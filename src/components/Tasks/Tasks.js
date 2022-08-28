@@ -198,7 +198,7 @@ export const Tasks = () => {
         <MovableItem
           key={task.id}
           name={task.title}
-          currentColumnName={task.etat}
+          currentColumnName={'Do it'}
           setTasks={setTasks}
           index={index}
           moveCardHandler={moveCardHandler}
