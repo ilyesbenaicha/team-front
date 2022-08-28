@@ -83,7 +83,47 @@ const taskSlice = createSlice({
                 deletTodoStatus: "",
                 delettodoError: "",
             }
-        }
+        },
+        [getTask.pending]:(state,action)=>{
+            return {
+                ...state,
+                addTodoStatus: "",
+                addtodoError: "",
+                getTodoStatus: "pending",
+                gettodoError: "",
+                updateTodoStatus: "",
+                updatetodoError: "",
+                deletTodoStatus: "",
+                delettodoError: "",
+            }
+        },
+        [getTask.fulfilled]:(state,action)=>{
+            return {
+                ...state,
+                tasks:action.payload,
+                addTodoStatus: "",
+                addtodoError: "",
+                getTodoStatus: "success",
+                gettodoError: "",
+                updateTodoStatus: "",
+                updatetodoError: "",
+                deletTodoStatus: "",
+                delettodoError: "",
+            }
+        },
+        [getTask.rejected]:(state,action)=>{
+            return {
+                ...state,
+                addTodoStatus: "",
+                addtodoError: "",
+                getTodoStatus: "rejected",
+                gettodoError: action.payload,
+                updateTodoStatus: "",
+                updatetodoError: "",
+                deletTodoStatus: "",
+                delettodoError: "",
+            }
+        },
     }
 
 })
