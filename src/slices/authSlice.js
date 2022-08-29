@@ -68,9 +68,7 @@ export const loginUser = createAsyncThunk(
                 role : user.role
 
             }) ;
-            console.log("token data =");
-
-            console.log(token.data.token);
+            console.log("token data =",token.data.token);
             localStorage.setItem("token",token.data.token);
             return token.data
         } catch (error) {

@@ -9,7 +9,14 @@ export default function Example() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const [user, setUser] = useState({
+    email: "",
+    role: "",
+    first_name : "",
+    tel:"",
+    adresse:"",
+    department:"",
+  });
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -57,13 +64,15 @@ export default function Example() {
             </Form.Group>
             </Col>
             <Col lg="4">  
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Department</Form.Label>
-              <Form.Control
-                type="Department"
-                autoFocus
-              />
-            </Form.Group>
+            <Form.Group as={Col} controlId="formGridState">
+          <Form.Label>Department</Form.Label>    
+          <Form.Select aria-label="Department">
+      <option value="Android developer">Android developer</option>
+      <option value="Software Development">Software Development</option>
+      <option value="Devops Engineer">Devops Engineer</option>
+      <option value="IOS Developer">IOS Developer</option>
+         </Form.Select>
+        </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Tel</Form.Label>
               <Form.Control
