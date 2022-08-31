@@ -6,7 +6,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { Row } from "reactstrap";
 import Addtasks from "./Addtasks";
 import { COLUMN_NAMES } from "./constants";
-
+import {useDispatch} from 'react-redux'
 import "./tasks.css";
 
 const MovableItem = ({
@@ -14,14 +14,18 @@ const MovableItem = ({
   index,
   currentColumnName,
   moveCardHandler,
-  setTasks
+  setTasks,
+  _id
 }) => {
   const changeItemColumn = (currentItem, columnName) => {
+    // console.log(currentItem,columnName)
+    // dispatch updateTask (currentItem.name, )
     setTasks((prevState) => {
+      console.log('prevState',prevState)
       return prevState.map((e) => {
         return {
           ...e,
-          column: e.name === currentItem.name ? columnName : e.column
+          etat: e.title === currentItem.name ? columnName : e.etat
         };
       });
     });
@@ -124,7 +128,7 @@ const Column = ({ children, className, title }) => {
     // Override monitor.canDrop() function
     canDrop: (task) => {
       const { DO_IT, IN_PROGRESS, AWAITING_REVIEW, DONE } = COLUMN_NAMES;
-      const { currentColumnName } = task.etat;
+      const { currentColumnName } = task;
       return (
         currentColumnName === title ||
         (currentColumnName === DO_IT && title === IN_PROGRESS) ||
@@ -163,6 +167,7 @@ const Column = ({ children, className, title }) => {
 
 export const Tasks = () => {
   const [tasks, setTasks] = useState([]);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/task/",{
@@ -172,12 +177,17 @@ export const Tasks = () => {
       setTasks(res.data);
     });
   }, []);
+  useEffect(()=>{
+// dispatch update action
+  },[tasks])
 
   const moveCardHandler = (dragIndex, hoverIndex) => {
     const dragItem = tasks[dragIndex];
 
     if (dragItem) {
       setTasks((prevState) => {
+        console.log('prevstate dragitem',prevState)
+        const itemId = prevState._id
         const coppiedStateArray = [...prevState];
 
         // remove item by "hoverIndex" and put "dragItem" instead
@@ -186,7 +196,7 @@ export const Tasks = () => {
         // remove item by "dragIndex" and put "prevItem" instead
         coppiedStateArray.splice(dragIndex, 1, prevItem[0]);
 
-        return coppiedStateArray;
+        return {_id:itemId,coppiedStateArray};
       });
     }
   };
@@ -202,6 +212,7 @@ export const Tasks = () => {
           setTasks={setTasks}
           index={index}
           moveCardHandler={moveCardHandler}
+          _id={task._id}
         />
       ));
   };

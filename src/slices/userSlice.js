@@ -1,34 +1,78 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const initialState = []
+const initialState = {
+    users:[],
+    token : localStorage.getItem("token"),
+    addUserStatus:"",
+    addUserError:"",
+    getUserStatus: "",
+    getUserError: "",
+    updateUserStatus: "",
+    updateUserError: "",
+    deletUserStatus: "",
+    deletUserError: "",
+}
+export const addUser = createAsyncThunk("user/addUser",
+async(user,{rejectWithValue})=>{
+    try {
+      const response=  await axios.post('http://localhost:5000/api/user/register',user,{
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+      return response.data
+
+    } catch (error) {
+        console.log(error);
+        return rejectWithValue(error.response.data)
+    }
+})
 const userSlice = createSlice({
     name:'users',
     initialState,
-    reducers:{
-        addUser:(state,action)=>{
-
-        }
-    }
+    reducers:{},
+    extraReducers:{
+        [addUser.pending]:(state,action)=>{
+            return {
+                ...state,
+                addUserStatus:"pending",
+                addUserError:"",
+                getUserStatus: "",
+                getUserError: "",
+                updateUserStatus: "",
+                updateUserError: "",
+                deletUserStatus: "",
+                deletUserError: "",
+            }
+        },
+        [addUser.fulfilled]:(state,action)=>{
+            return {
+                ...state,
+                
+                users:[action.payload,...state.users],
+                addUserStatus:"success",
+                addUserError:"",
+                getUserStatus: "",
+                getUserError: "",
+                updateUserStatus: "",
+                updateUserError: "",
+                deletUserStatus: "",
+                deletUserError: "",
+            }
+        },
+        [addUser.rejected]:(state,action)=>{
+            return {
+                ...state,
+                addUserStatus:"rejected",
+    addUserError:action.payload,
+    getUserStatus: "",
+    getUserError: "",
+    updateUserStatus: "",
+    updateUserError: "",
+    deletUserStatus: "",
+    deletUserError: "",
+            }
+    },}
 })
-export const loginUser = createAsyncThunk(
-    "user/addUser",
-    async (user,{rejectWithValue})=>{
-        try {
-            const token = await axios.post('http://localhost:5000/api/user/register',{
-                email : user.email,
-                password : user.password,
-                role : user.role
 
-            }) ;
-            console.log("token data =");
 
-            console.log(token.data.token);
-            localStorage.setItem("token",token.data.token);
-            return token.data
-        } catch (error) {
-            console.log(error.response.data);
-            return rejectWithValue(error.response.data);
-        }
-    }
-)
+
 export default userSlice.reducer

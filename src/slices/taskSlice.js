@@ -39,6 +39,18 @@ const   initialState={
             return rejectWithValue(error.response.data)
         }
     })
+    export const updateTask = createAsyncThunk('tasks/updateTask',async(task,{rejectWithValue})=>{
+        try {
+            const response=  await axios.post('http://localhost:5000/api/task/',{
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            })
+              return response.data
+    
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue(error.response.data)
+        }
+    })
 const taskSlice = createSlice({
     name:"tasks",
     initialState,
@@ -83,7 +95,47 @@ const taskSlice = createSlice({
                 deletTodoStatus: "",
                 delettodoError: "",
             }
-        }
+        },
+        [getTask.pending]:(state,action)=>{
+            return {
+                ...state,
+                addTodoStatus: "",
+                addtodoError: "",
+                getTodoStatus: "pending",
+                gettodoError: "",
+                updateTodoStatus: "",
+                updatetodoError: "",
+                deletTodoStatus: "",
+                delettodoError: "",
+            }
+        },
+        [getTask.fulfilled]:(state,action)=>{
+            return {
+                ...state,
+                tasks:action.payload,
+                addTodoStatus: "",
+                addtodoError: "",
+                getTodoStatus: "success",
+                gettodoError: "",
+                updateTodoStatus: "",
+                updatetodoError: "",
+                deletTodoStatus: "",
+                delettodoError: "",
+            }
+        },
+        [getTask.rejected]:(state,action)=>{
+            return {
+                ...state,
+                addTodoStatus: "",
+                addtodoError: "",
+                getTodoStatus: "rejected",
+                gettodoError: action.payload,
+                updateTodoStatus: "",
+                updatetodoError: "",
+                deletTodoStatus: "",
+                delettodoError: "",
+            }
+        },
     }
 
 })

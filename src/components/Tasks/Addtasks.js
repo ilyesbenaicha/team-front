@@ -29,8 +29,8 @@ function Addtasks() {
       title: "",
       description: "",
       etat:"",
-      start_date: startDte,
-      end_date: endDate
+      start_date: "",
+      end_date: ""
     }); 
     console.log("task=", task);
   };
@@ -45,8 +45,8 @@ function Addtasks() {
           onChange={(e) => setTask({ ...task, title: e.target.value })}
            type="text" placeholder="Enter title" />
         </Form.Group>
-       
-        <br/>
+              
+         <br/>
         <Form.Group  controlId="exampleForm.">
           <Form.Label>description</Form.Label>
           <Form.Control  type="text"  
@@ -74,6 +74,16 @@ function Addtasks() {
                 minDate={startDte}
             />
             </FormGroup>
+ <br/>
+ <Form.Label>etat</Form.Label>    
+          <Form.Select aria-label="Department" value={task.etat}
+          onChange={(e)=>setTask({...task,etat:e.task.value})}
+          >
+      <option value="Do_it">Do it</option>
+      <option value="In_Progress">In Progress</option>
+      <option value="Awaiting_review">Awaiting review</option>
+      <option value="Done">Done</option>
+         </Form.Select>
         <Button
           type="submit"
           variant="contained"
