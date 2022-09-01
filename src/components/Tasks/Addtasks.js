@@ -17,7 +17,7 @@ function Addtasks() {
   const [task, setTask] = useState({
     title: "",
     description: "",
-    etat : "",
+    etat : "Do it",
     startDte ,
     endDate
   });
@@ -28,7 +28,7 @@ function Addtasks() {
     setTask({
       title: "",
       description: "",
-      etat:"",
+      etat:"Do it",
       start_date: "",
       end_date: ""
     }); 
@@ -75,15 +75,16 @@ function Addtasks() {
             />
             </FormGroup>
  <br/>
- <Form.Label>etat</Form.Label>    
-          <Form.Select aria-label="Department" value={task.etat}
-          onChange={(e)=>setTask({...task,etat:e.task.value})}
+ {/* <Form.Label>etat</Form.Label>    
+          <Form.Select aria-label="etat" value={task.etat}
+          onChange={(e)=>setTask({...task,etat:e.target.value})}
           >
-      <option value="Do_it">Do it</option>
-      <option value="In_Progress">In Progress</option>
-      <option value="Awaiting_review">Awaiting review</option>
+          <option>choose state</option>
+      <option value="Do it">Do it</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Awaiting review">Awaiting review</option>
       <option value="Done">Done</option>
-         </Form.Select>
+         </Form.Select> */}
         <Button
           type="submit"
           variant="contained"

@@ -40,7 +40,7 @@ export default function Example() {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-       Add
+       Add New User
       </Button>
 
       <Modal 	size="lg" show={show} onHide={handleClose}>
