@@ -78,7 +78,7 @@ console.log(project);
           <Form.Label>admin</Form.Label> <Form.Select defaultValue="Choose...">
           {users.map((el)=>(
            
-            <option>{el.name}</option>
+            <option>{el.first_name}</option>
     
           
           ))}

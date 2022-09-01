@@ -8,6 +8,7 @@ import Addtasks from "./Addtasks";
 import { COLUMN_NAMES } from "./constants";
 import {useDispatch} from 'react-redux'
 import "./tasks.css";
+import { updateTaskeByName } from "../../slices/taskSlice";
 
 const MovableItem = ({
   name,
@@ -179,7 +180,8 @@ export const Tasks = () => {
   }, []);
   useEffect(()=>{
 // dispatch update action
-  },[tasks])
+dispatch(updateTaskeByName())
+  },[dispatch])
 
   const moveCardHandler = (dragIndex, hoverIndex) => {
     const dragItem = tasks[dragIndex];

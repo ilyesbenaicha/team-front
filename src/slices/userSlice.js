@@ -1,5 +1,6 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+
 const initialState = {
     users:[],
     token : localStorage.getItem("token"),
@@ -13,11 +14,26 @@ const initialState = {
     deletUserError: "",
 }
 export const addUser = createAsyncThunk("user/addUser",
-async(user,{rejectWithValue})=>{
+async(user,{rejectWithValue,dispatch})=>{
     try {
-      const response=  await axios.post('http://localhost:5000/api/user/register',user,{
+        await axios.post('http://localhost:5000/api/user/register',user,{
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
+    
+      return dispatch(getUser())
+
+    } catch (error) {
+        console.log(error);
+        return rejectWithValue(error.response.data)
+    }
+})
+export const getUser = createAsyncThunk("user/getUser",
+async(para,{rejectWithValue})=>{
+    try {
+      const response=  await axios.get('http://localhost:5000/api/user/getAll',{
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+    
       return response.data
 
     } catch (error) {
@@ -58,21 +74,21 @@ const userSlice = createSlice({
                 deletUserError: "",
             }
         },
-        [addUser.fulfilled]:(state,action)=>{
-            return {
-                ...state,
+        // [addUser.fulfilled]:(state,action)=>{
+        //     return {
+        //         ...state,
                 
-                users:[action.payload,...state.users],
-                addUserStatus:"success",
-                addUserError:"",
-                getUserStatus: "",
-                getUserError: "",
-                updateUserStatus: "",
-                updateUserError: "",
-                deletUserStatus: "",
-                deletUserError: "",
-            }
-        },
+        //         users:[action.payload,...state.users],
+        //         addUserStatus:"",
+        //         addUserError:"",
+        //         getUserStatus: "",
+        //         getUserError: "",
+        //         updateUserStatus: "",
+        //         updateUserError: "",
+        //         deletUserStatus: "",
+        //         deletUserError: "",
+        //     }
+        // },
         [addUser.rejected]:(state,action)=>{
             return {
                 ...state,
@@ -128,6 +144,46 @@ const userSlice = createSlice({
     updateUserError: "",
     deletUserStatus: "rejected",
     deletUserError: action.payload,
+            }},
+        [getUser.pending]:(state,action)=>{
+            return {
+                ...state,
+                addUserStatus:"",
+                addUserError:"",
+                getUserStatus: "pending",
+                getUserError: "",
+                updateUserStatus: "",
+                updateUserError: "",
+                deletUserStatus: "",
+                deletUserError: "",
+            }
+        },
+        [getUser.fulfilled]:(state,action)=>{
+           
+            return {
+                ...state, 
+                users:action.payload,
+                addUserStatus:"",
+                addUserError:"",
+                getUserStatus: "success",
+                getUserError: "",
+                updateUserStatus: "",
+                updateUserError: "",
+                deletUserStatus: "",
+                deletUserError: "",
+            }
+        },
+        [getUser.rejected]:(state,action)=>{
+            return {
+                ...state,
+                addUserStatus:"",
+    addUserError:"",
+    getUserStatus: "rejected",
+    getUserError: action.payload,
+    updateUserStatus: "",
+    updateUserError: "",
+    deletUserStatus: "",
+    deletUserError: "",
             }}
 
       }  })

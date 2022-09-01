@@ -41,7 +41,19 @@ const   initialState={
     })
     export const updateTask = createAsyncThunk('tasks/updateTask',async(task,{rejectWithValue})=>{
         try {
-            const response=  await axios.post('http://localhost:5000/api/task/',{
+            const response=  await axios.put('http://localhost:5000/api/task/',{
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            })
+              return response.data
+    
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue(error.response.data)
+        }
+    })
+    export const updateTaskeByName = createAsyncThunk('tasks/updateTaskByName',async(task,{rejectWithValue})=>{
+        try {
+            const response=  await axios.put('http://localhost:5000/api/task/update/'+task.title,task,{
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             })
               return response.data

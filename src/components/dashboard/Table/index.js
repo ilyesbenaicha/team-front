@@ -43,7 +43,7 @@ const Table = ({ data, rowsPerPage }) => {
             class="btn btn-danger"
             data-bs-toggle="modal"
             data-bs-target="#myModal"
-            onClick={()=> handleDelete(el.id)}
+            onClick={()=> handleDelete(el._id)}
           >Delete
           </button>  <button
             type="button"
