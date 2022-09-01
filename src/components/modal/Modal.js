@@ -20,7 +20,7 @@ export default function Example() {
     last_name:"",
     tel:"",
     adresse:"",
-    department:"",
+    department: null,
   });
   const handelSubmit=(e)=>{
     e.preventDefault();
@@ -32,7 +32,7 @@ export default function Example() {
        last_name:"",
        tel:"",
        adresse:"",
-       department:"",
+       department: null,
      });
     console.log("user=",user);
 
