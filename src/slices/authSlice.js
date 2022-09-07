@@ -6,7 +6,7 @@ const initialState={
     email : "",
     role : "",
     _id: "",
-    loginStatus : "",
+    loginStatus : localStorage.getItem("loginStatus") || "failed",
     loginError : "",
     userLoaded : false ,
 }
@@ -70,6 +70,7 @@ export const loginUser = createAsyncThunk(
             }) ;
             console.log("token data =",token.data.token);
             localStorage.setItem("token",token.data.token);
+            localStorage.setItem('loginStatus',"success")
             return token.data
         } catch (error) {
             console.log(error.response.data);

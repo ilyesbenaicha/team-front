@@ -14,7 +14,7 @@ function Viewuser() {
    </Button>
    <Modal 	size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add New User</Modal.Title>
+          <Modal.Title>View User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Container fluid="md">

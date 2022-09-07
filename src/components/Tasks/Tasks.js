@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Col } from "react-bootstrap";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
@@ -6,9 +5,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { Row } from "reactstrap";
 import Addtasks from "./Addtasks";
 import { COLUMN_NAMES } from "./constants";
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import "./tasks.css";
-import { updateTaskeByName } from "../../slices/taskSlice";
+import { getTask, updateTaskeByName } from "../../slices/taskSlice";
 
 const MovableItem = ({
   name,
@@ -16,11 +15,14 @@ const MovableItem = ({
   currentColumnName,
   moveCardHandler,
   setTasks,
-  _id
+  _id,
+  dispatch
 }) => {
   const changeItemColumn = (currentItem, columnName) => {
-    // console.log(currentItem,columnName)
+    console.log( "change Column" ,currentItem,columnName)
     // dispatch updateTask (currentItem.name, )
+
+    dispatch(updateTaskeByName({title:currentItem.name,columnName}))
     setTasks((prevState) => {
       console.log('prevState',prevState)
       return prevState.map((e) => {
@@ -167,21 +169,15 @@ const Column = ({ children, className, title }) => {
 };
 
 export const Tasks = () => {
-  const [tasks, setTasks] = useState([]);
+  const taskList= useSelector(state=>state.tasks.tasks)
+  const [tasks, setTasks] = useState(taskList);
   const dispatch = useDispatch()
-
   useEffect(() => {
-    axios.get("http://localhost:5000/api/task/",{
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-    }).then((res) => {
-      console.log("res", res);
-      setTasks(res.data);
-    });
-  }, []);
-  useEffect(()=>{
-// dispatch update action
-dispatch(updateTaskeByName())
-  },[dispatch])
+    dispatch(getTask())
+  }, [dispatch]);
+  useEffect(() => {
+    setTasks(taskList)
+  }, [taskList]);
 
   const moveCardHandler = (dragIndex, hoverIndex) => {
     const dragItem = tasks[dragIndex];
@@ -205,13 +201,14 @@ dispatch(updateTaskeByName())
 
   const returnItemsForColumn = (columnName) => {
     return tasks
-     .filter((task) => task.etat === columnName)
-      .map((task, index) => (
+    .filter((task) => task.etat === columnName)
+      ?.map((task, index) => (
         <MovableItem
           key={task.id}
           name={task.title}
           currentColumnName={task.etat}
           setTasks={setTasks}
+          dispatch={dispatch}
           index={index}
           moveCardHandler={moveCardHandler}
           _id={task._id}

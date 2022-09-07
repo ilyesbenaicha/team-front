@@ -17,7 +17,7 @@ export default function Projects() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/user/getAll").then((res) => {
+    axios.get("http://localhost:5000/api/user/getAdmin").then((res) => {
       console.log("res", res);
       setUsers(res.data);
     });
