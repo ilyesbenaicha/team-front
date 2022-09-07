@@ -1,11 +1,12 @@
 import { Alert, Button, CircularProgress, FormGroup } from "@mui/material";
-import React, { useState } from "react";
-import { Col, Row } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Col, Input, Label, Row, Spinner } from "reactstrap";
 import { useDispatch,useSelector } from "react-redux";
 import { addTask } from "../../slices/taskSlice";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Form from 'react-bootstrap/Form';
+import axios from "axios";
 function Addtasks() {
   const [startDte, setDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
@@ -19,9 +20,17 @@ function Addtasks() {
     description: "",
     etat : "Do it",
     startDte ,
-    endDate
+    endDate,
+    user:""
   });
- 
+  const [employer, setEmployer] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/user/getEmployer").then((res) => {
+      console.log("res", res);
+      setEmployer(res.data);
+    });
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addTask(task));
@@ -30,7 +39,8 @@ function Addtasks() {
       description: "",
       etat:"Do it",
       start_date: "",
-      end_date: ""
+      end_date: "",
+      user: ""
     }); 
     console.log("task=", task);
   };
@@ -75,16 +85,25 @@ function Addtasks() {
             />
             </FormGroup>
  <br/>
- {/* <Form.Label>etat</Form.Label>    
-          <Form.Select aria-label="etat" value={task.etat}
-          onChange={(e)=>setTask({...task,etat:e.target.value})}
-          >
-          <option>choose state</option>
-      <option value="Do it">Do it</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Awaiting review">Awaiting review</option>
-      <option value="Done">Done</option>
-         </Form.Select> */}
+ <FormGroup>
+                <Label for="exampleSelectMulti">Select Multiple</Label>
+                <Input
+                  id="exampleSelectMulti"
+                  multiple
+                  name="selectMulti"
+                  type="select"
+                  onChange={(e) => setTask({ ...task, user: e.target.value })}
+
+                >
+                {
+                  employer.map((el)=>(
+                    <option value={el._id}>{el.first_name}</option>
+                    
+                 ))
+                }
+                  
+                </Input>  
+              </FormGroup>
         <Button
           type="submit"
           variant="contained"

@@ -129,8 +129,9 @@ export default function Example() {
             </Form.Select></Col></Row>
             <Button
           type="submit"
-          variant="contained"
+          variant="primary"
           size="small"
+         
           sx={{
             margin: "0.9rem 0rem",
             fonFamily: "'Abel','sanSerif'"

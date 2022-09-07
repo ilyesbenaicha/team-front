@@ -5,6 +5,7 @@ import styles from "./Table.module.css";
 import TableFooter from "../tableFooter/TableFooter";
 import Modal from "../../modal/Modal"
 import { deletUser } from "../../../slices/userSlice";
+import Viewuser from "../../Viewuser";
 
 const Table = ({ data, rowsPerPage }) => {
   const [page, setPage] = useState(1);
@@ -45,14 +46,7 @@ const Table = ({ data, rowsPerPage }) => {
             data-bs-target="#myModal"
             onClick={()=> handleDelete(el._id)}
           >Delete
-          </button>  <button
-            type="button"
-            class="btn btn-info"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          >
-           View
-          </button></td>
+          </button>  <Viewuser/></td>
             </tr>
           ))}
         </tbody>
