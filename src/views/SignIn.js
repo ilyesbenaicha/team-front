@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux/es/exports';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { loginUser } from '../slices/authSlice';
+import Swal from 'sweetalert2';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -33,6 +34,13 @@ export default function SignIn() {
 const navigate =  useNavigate();
 useEffect(()=>{
   if (auth.email) {
+    Swal.fire({
+      position: 'static',
+      icon: 'success',
+      title: `welcome ${auth.email}`,
+      showConfirmButton: false,
+      timer: 2000
+    })
     navigate("/starter")
   }
 },[auth.email , navigate]);
@@ -106,7 +114,7 @@ useEffect(()=>{
             >
              {auth.loginStatus === "pending" ? "submitting" : "Login"}
             </Button>
-            {auth.loginStatus === "rejected" ? (<p> error</p> ): null}
+            {auth.loginStatus === "rejected" ? (<p> Please verify your username and password</p> ): null}
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

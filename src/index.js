@@ -8,9 +8,12 @@ import Loader from "./layouts/loader/Loader";
 import 'core-js'
 import { Provider } from 'react-redux'
 import store from "./store"
+//import { ToastContainer} from 'react-toastify';
+//import './react-toastify/dist/ReactToastify.css';
 ReactDOM.render(
   <Suspense fallback={<Loader />}>
  <Provider store={store}>  
+
   <BrowserRouter>
      <App />
     </BrowserRouter>

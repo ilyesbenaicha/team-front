@@ -1,12 +1,14 @@
 import { Alert, Button, CircularProgress, FormGroup } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Col, Input, Label, Row, Spinner } from "reactstrap";
+import { Input, Label, Row  } from "reactstrap";
 import { useDispatch,useSelector } from "react-redux";
 import { addTask } from "../../slices/taskSlice";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
+import Swal from "sweetalert2";
+// import {toast} from "react-toastify";
 function Addtasks() {
   const [startDte, setDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
@@ -86,7 +88,7 @@ function Addtasks() {
             </FormGroup>
  <br/>
  <FormGroup>
-                <Label for="exampleSelectMulti">Select Multiple</Label>
+                <Label for="exampleSelectMulti">Developer</Label>
                 <Input
                   id="exampleSelectMulti"
                   multiple
@@ -120,8 +122,15 @@ function Addtasks() {
 }        </Button>
           {taskState.addTodoStatus === "rejected" ? (
             <Alert severity="error">{taskState.addtodoError}</Alert>
-          ): null}
+              ): null}
           {taskState.addTodoStatus === "success" ? (
+            Swal.fire({
+  position: 'center',
+  icon: 'success',
+  title: 'Task Added ...',
+  showConfirmButton: false,
+  timer: 1500
+}),
             <Alert severity="success">Task Added ...</Alert>
           ): null}
      </Row> </Form>

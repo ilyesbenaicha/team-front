@@ -6,6 +6,7 @@ import { Col, Container, Row } from 'reactstrap';
  import { useDispatch,useSelector } from "react-redux";
  import { addUser } from '../../slices/userSlice';
 import { Alert, CircularProgress } from '@mui/material';
+import Swal from 'sweetalert2';
 
 export default function Example() {
   const [show, setShow] = useState(false);
@@ -50,10 +51,18 @@ export default function Example() {
         <Modal.Body>
         { 
           userState.addUserStatus === "rejected" ? (
+            
             <Alert severity="error">{useState.addUserError}</Alert>
           ): null}
           {userState.addUserStatus === "success" ? (
-            <Alert severity="success">Task Added ...</Alert>
+            Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: "user added",
+      showConfirmButton: false,
+      timer: 1500
+    })
+           // <Alert severity="success">User Added ...</Alert>
           ): null} 
        <Container fluid="md">
           <Form  onSubmit={handelSubmit}> 
@@ -146,12 +155,7 @@ export default function Example() {
           </Form>
           </Container>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        
-        </Modal.Footer>
+    
       </Modal>
     </>
   );
