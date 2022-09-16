@@ -25,6 +25,29 @@ async (project,{rejectWithValue})=>{
     }
 }
 )
+export const getProject = createAsyncThunk('projects/getProject',async(id,{rejectWithValue})=>{
+    try {
+        const response=  await axios.get('http://localhost:5000/api/project/',{
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+          return response.data
+    } catch (error) {
+        console.log(error);
+        return rejectWithValue(error.response.data)
+    }
+})
+export const updateProject = createAsyncThunk('projects/updateProject',async(project,{rejectWithValue,dispatch})=>{
+    try {
+        await axios.put('http://localhost:5000/api/project/',project,{
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+          return dispatch(getProject())
+
+    } catch (error) {
+        console.log(error);
+        return rejectWithValue(error.response.data)
+    }
+})
 const projectSlice = createSlice({
     name: "projects",
     initialState,
@@ -69,7 +92,87 @@ const projectSlice = createSlice({
                 deletProjectStatus: "",
                 deletProjectError: "",
             }
-        }
+        },
+        [getProject.pending]:(state,action)=>{
+            return {
+                ...state,
+                addProjectStatus:"",
+                addProjectError:"",
+                getProjectStatus: "pending",
+                getProjectError: "",
+                updateProjectStatus: "",
+                updateProjectError: "",
+                deletProjectStatus: "",
+                deletProjectError: "",
+            }
+        },
+        [getProject.fulfilled]:(state,action)=>{
+            return {
+                ...state,
+                projects:action.payload,
+                addProjectStatus:"",
+                addProjectError:"",
+                getProjectStatus: "success",
+                getProjectError: "",
+                updateProjectStatus: "",
+                updateProjectError: "",
+                deletProjectStatus: "",
+                deletProjectError: "",
+            }
+        },
+        [getProject.rejected]:(state,action)=>{
+            return {
+                ...state,
+                addProjectStatus:"",
+                addProjectError:"",
+                getProjectStatus: "rejected",
+                getProjectError: action.payload,
+                updateProjectStatus: "",
+                updateProjectError: "",
+                deletProjectStatus: "",
+                deletProjectError: "",
+            }
+        },
+        [updateProject.pending]:(state,action)=>{
+            return {
+                ...state,
+                addProjectStatus:"",
+                addProjectError:"",
+                getProjectStatus: "",
+                getProjectError: "",
+                updateProjectStatus: "pending",
+                updateProjectError: "",
+                deletProjectStatus: "",
+                deletProjectError: "",
+            }
+        },
+        [updateProject.fulfilled]:(state,action)=>{
+            return {
+                ...state,
+                projects:action.payload,
+                addProjectStatus:"",
+                addProjectError:"",
+                getProjectStatus: "",
+                getProjectError: "",
+                updateProjectStatus: "success",
+                updateProjectError: "",
+                deletProjectStatus: "",
+                deletProjectError: "",
+            }
+        },
+        [updateProject.rejected]:(state,action)=>{
+            return {
+                ...state,
+                addProjectStatus:"",
+                addProjectError:"",
+                getProjectStatus: "",
+                getProjectError: "",
+                updateProjectStatus: "rejected",
+                updateProjectError: action.payload,
+                deletProjectStatus: "",
+                deletProjectError: "",
+            }
+        },
     }
 })
 export default projectSlice.reducer;

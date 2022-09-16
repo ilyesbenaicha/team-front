@@ -86,7 +86,7 @@ useEffect(()=>{
               autoComplete="email"
               autoFocus
                         onChange={(e) =>setUser({...user, email: e.target.value})}
-                    
+                
       
             />
             <TextField
@@ -100,10 +100,6 @@ useEffect(()=>{
               autoComplete="current-password"
               onChange={(e) =>setUser({...user, password: e.target.value})}
                       
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"

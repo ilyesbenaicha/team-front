@@ -8,6 +8,7 @@ import { COLUMN_NAMES } from "./constants";
 import {useDispatch, useSelector} from 'react-redux'
 import "./tasks.css";
 import { getTask, updateTaskeByName } from "../../slices/taskSlice";
+import TasksList from "./TasksList";
 
 const MovableItem = ({
   name,
@@ -221,6 +222,7 @@ export const Tasks = () => {
   return (
     <>
     <Row>
+    <TasksList/>
     <Col xs lg="3">
     <Addtasks/></Col>
     <Col md="auto">

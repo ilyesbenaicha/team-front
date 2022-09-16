@@ -23,8 +23,16 @@ export default function Example() {
     adresse:"",
     department: null,
   });
+  const [validated, setValidated] = useState(false);
+ 
   const handelSubmit=(e)=>{
-    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
     dispatch(addUser(user));
      setUser({
        email: "",
@@ -65,7 +73,7 @@ export default function Example() {
            // <Alert severity="success">User Added ...</Alert>
           ): null} 
        <Container fluid="md">
-          <Form  onSubmit={handelSubmit}> 
+          <Form  onSubmit={handelSubmit} noValidate validated={validated}> 
           <Row>
           <Col lg="4">
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -76,7 +84,11 @@ export default function Example() {
                 autoFocus
                 value={user.email}
                 onChange={(e)=>setUser({...user,email: e.target.value})}
+                required
               />
+               <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>First Name</Form.Label>
@@ -85,7 +97,11 @@ export default function Example() {
                 autoFocus
                 value={user.first_name}
                 onChange={(e)=>setUser({...user,first_name:e.target.value})}
+                required
               />
+               <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -95,7 +111,11 @@ export default function Example() {
                 autoFocus
                 value={user.last_name}
                 onChange={(e)=>setUser({...user,last_name:e.target.value})}
+                required
               />
+               <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Address</Form.Label>
@@ -104,19 +124,25 @@ export default function Example() {
                 autoFocus
                 value={user.adresse}
                 onChange={(e)=>setUser({...user,adresse:e.target.value})}
+                required
               />
+               <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
             </Form.Group>
             </Col>
             <Col lg="4">  
             <Form.Group as={Col} controlId="formGridState">
           <Form.Label>Department</Form.Label>    
           <Form.Select aria-label="Department" 
+
           value={user.department} 
           onChange={(e)=>setUser({...user,department:e.target.value})}>
       <option value="Android developer">Android developer</option>
       <option value="Software Development">Software Development</option>
       <option value="Devops Engineer">Devops Engineer</option>
       <option value="IOS Developer">IOS Developer</option>
+      
          </Form.Select>
         </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -127,6 +153,7 @@ export default function Example() {
                 autoFocus
                 value={user.tel}
                 onChange={(e)=>setUser({...user,tel:e.target.value})}
+          required
               />
             </Form.Group>
             <Form.Select className="mb-3" aria-label="Default select example"
@@ -151,7 +178,9 @@ export default function Example() {
   userState.addUserStatus === "pending" ?(
   <CircularProgress size={24} color = "secondary"/>
  ): "Add User"
-      }</Button> 
+      }
+      
+      </Button> 
           </Form>
           </Container>
         </Modal.Body>
