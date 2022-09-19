@@ -8,6 +8,7 @@ import bg1 from "../assets/images/bg/bg1.jpg";
 import bg2 from "../assets/images/bg/bg2.jpg";
 import bg3 from "../assets/images/bg/bg3.jpg";
 import bg4 from "../assets/images/bg/bg4.jpg";
+import TasksTable from "../components/dashboard/TasksTable";
 
 const BlogData = [
   {
@@ -60,8 +61,11 @@ const Starter = () => {
       </Row>
       {/***Table ***/}
       <Row>
-        <Col lg="12">
+        {/* <Col lg="12">
           <ProjectTables />
+        </Col> */}
+        <Col lg="12">
+      <TasksTable/>
         </Col>
       </Row>
       {/***Blog Cards***/}

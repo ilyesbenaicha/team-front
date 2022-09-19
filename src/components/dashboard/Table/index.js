@@ -7,13 +7,13 @@ import Modal from "../../modal/Modal"
 import { deletUser } from "../../../slices/userSlice";
 import Viewuser from "../../Viewuser";
 import Swal from "sweetalert2";
-
+import useAuth from "../../../hooks/useAuth";
 const Table = ({ data, rowsPerPage }) => {
   const [page, setPage] = useState(1);
   const { slice, range } = useTable(data, page, rowsPerPage);
   const dispatch = useDispatch();
 
-
+  const {email,status} =useAuth
   const handleDelete = (_id)=>{
     Swal.fire({
       title: 'Are you sure?',
@@ -70,6 +70,9 @@ const Table = ({ data, rowsPerPage }) => {
         </tbody>
       </table>
       <TableFooter range={range} slice={slice} setPage={setPage} page={page} />
+      <p> current Users : {email}</p>
+      <p> status : {status}</p>
+
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormSelect } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import {  Card, CardText, CardTitle, Col, Row } from 'reactstrap'
@@ -6,13 +6,16 @@ import { getTask } from '../../slices/taskSlice';
 
 function TasksList() {
    
-    const dispatch = useDispatch()
-    const tasks = useSelector((state)=>state.tasks);
-    const [listOftasks]= tasks.tasks 
-    useEffect(() => {
-      dispatch(getTask())
-    }, [dispatch]);
-console.log("listOfTasks",listOftasks)
+  const taskList= useSelector(state=>state.tasks.tasks)
+  const [tasks, setTasks] = useState(taskList);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getTask())
+  }, [dispatch]);
+  useEffect(() => {
+    setTasks(taskList)
+  }, [taskList]); 
+console.log("listOfTasks",taskList)
   return (
     <div>
     <Row>
@@ -21,7 +24,7 @@ console.log("listOfTasks",listOftasks)
     <Card body color="light-success">
     <CardTitle tag="h5">TASKS</CardTitle>
     <CardText>
-   Total  {tasks.tasks.length} 
+   Total  {tasks.length} 
         </CardText>
     </Card></Col> <Col md="3" lg="6">
         <FormSelect>
@@ -32,6 +35,7 @@ console.log("listOfTasks",listOftasks)
       <Card body color="primary" inverse>
         <CardTitle tag="h5">Do it</CardTitle>
         <CardText>
+        {tasks.etat === "Do it"?(<span>{tasks.etat.count}</span>):null}
         </CardText>
       </Card>
     </Col>

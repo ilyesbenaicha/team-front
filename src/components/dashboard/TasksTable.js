@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
-import { getProject } from "../../slices/projectSlice";
+import { getTask } from "../../slices/taskSlice";
 // import user1 from "../../assets/images/users/user1.jpg";
 // import user2 from "../../assets/images/users/user2.jpg";
 // import user3 from "../../assets/images/users/user3.jpg";
@@ -56,16 +56,16 @@ import { getProject } from "../../slices/projectSlice";
 //   },
 // ];
 
-const ProjectTables = () => {
-  const projectList= useSelector(state=>state.projects.projects)
-  const [projects, setProjects] = useState(projectList);
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getProject())
-  }, [dispatch]);
-  useEffect(() => {
-    setProjects(projectList)
-  }, [projectList]); 
+const TasksTable = () => {
+    const taskList= useSelector(state=>state.tasks.tasks)
+    const [tasks, setTasks] = useState(taskList);
+    const dispatch = useDispatch()
+    useEffect(() => {
+      dispatch(getTask())
+    }, [dispatch]);
+    useEffect(() => {
+      setTasks(taskList)
+    }, [taskList]); 
 
 return (
     <div>
@@ -88,29 +88,37 @@ return (
               </tr>
             </thead>
             <tbody>
-              {projects.map((projects, index) => (
+              {tasks.map((tasks, index) => (
                 <tr key={index} className="border-top">
                   <td>
                     <div className="d-flex align-items-center p-2">
 
                       <div className="ms-3">
-                        <h6 className="mb-0">{projects.user.last_name}</h6>
-                        <span className="text-muted">{projects.user.email}</span>
+                        {/* <h6 className="mb-0">{tasks.user.last_name}</h6> */}
+                        {/* <span className="text-muted">{tasks.user.email}</span> */}
                       </div>
                     </div>
                   </td>
-                  <td>{projects.title}</td>
-                  {/* <td>
-                    {tdata.status === "pending" ? (
-                      <span className="p-2 bg-danger rounded-circle d-inline-block ms-3"></span>
-                    ) : tdata.status === "holt" ? (
-                      <span className="p-2 bg-warning rounded-circle d-inline-block ms-3"></span>
-                    ) : (
+                  <td>{tasks.title}</td>
+                  <td>
+                    {tasks.etat === "Do it" ? (
+                      <span className="p-2 bg-primary rounded-circle d-inline-block ms-3"></span>
+                    ):
+                    tasks.etat === "AWAITING REVIEW" ? (
                       <span className="p-2 bg-success rounded-circle d-inline-block ms-3"></span>
+                    )
+                     : tasks.etat === "In Progress" ? (
+                      <span className="p-2 bg-info rounded-circle d-inline-block ms-3"></span>
+                    ) 
+                    : tasks.etat === "DONE" ? (
+                      <span className="p-2 bg-danger rounded-circle d-inline-block ms-3"></span>
+                    )
+                    : (
+                      <span className="p-2 bg-white rounded-circle d-inline-block ms-3"></span>
                     )}
-                  </td> */}
-                  {/* <td>{tdata.weeks}</td>
-                  <td>{tdata.budget}</td> */}
+                  </td>
+                  <td>{tasks.etat}</td>
+                  <td>{tasks.budget}</td>
                 </tr>
               ))}
             </tbody>
@@ -121,5 +129,5 @@ return (
   );
 };
 
-export default ProjectTables;
+export default TasksTable;
 

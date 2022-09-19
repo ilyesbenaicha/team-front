@@ -15,7 +15,7 @@ const initialState= {
 export const addProject = createAsyncThunk("project/addProject",
 async (project,{rejectWithValue})=>{
     try{
-        const response = await axios.post('http://localhost:5000/api/project/',project,{
+        const response = await axios.post('http://localhost:5000/api/project',project,{
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
         return response.data

@@ -10,6 +10,7 @@ const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
 const Users = lazy(() => import("../views/ui/Users"));
 const Task = lazy(() => import("../views/ui/Task"));
+const MyAcount= lazy(()=>import("../views/ui/MyAcount"))
 //const Buttons = lazy(() => import("../views/ui/Buttons"));
 const Cards = lazy(() => import("../views/ui/Cards"));
 const Grid = lazy(() => import("../views/ui/Grid"));
@@ -40,6 +41,7 @@ const ThemeRoutes = [
       { path: "/forms", exact: true, element: <Forms /> },
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
       { path: "/users/new", exact: true, element: <New /> },
+      { path: "/myacount", exact: true, element: <MyAcount /> },
 
     ],
   },

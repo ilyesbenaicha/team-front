@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import "./tasks.css";
 import { getTask, updateTaskeByName } from "../../slices/taskSlice";
 import TasksList from "./TasksList";
+import jwtDecode from "jwt-decode";
 
 const MovableItem = ({
   name,
@@ -179,7 +180,14 @@ export const Tasks = () => {
   useEffect(() => {
     setTasks(taskList)
   }, [taskList]);
-
+  const loginStatus = useSelector((state)=>state.auth.loginStatus)
+  const token = localStorage.getItem("token");
+     const user = token && jwtDecode(token);
+    if(loginStatus  === "success") {
+   
+    if(user.role ==="admin"){
+    }
+  }
   const moveCardHandler = (dragIndex, hoverIndex) => {
     const dragItem = tasks[dragIndex];
 
@@ -222,9 +230,9 @@ export const Tasks = () => {
   return (
     <>
     <Row>
-    <TasksList/>
+    {user?.role ==="Admin"?<TasksList/>:null}
     <Col xs lg="3">
-    <Addtasks/></Col>
+   {user?.role==="Admin" ?<Addtasks/>:null}</Col>
     <Col md="auto">
     <div className="container">
       <DndProvider backend={HTML5Backend}>

@@ -7,6 +7,11 @@ import { useSelector } from "react-redux";
 
 const AdminNavigation =[
   {
+    title: "Dashboard",
+    href: "/starter",
+    icon: "bi bi-speedometer2",
+  },
+  {
     title: "Table",
     href: "/table",
     icon: "bi bi-layout-split",
@@ -17,9 +22,9 @@ const AdminNavigation =[
     icon: "bi bi-textarea-resize",
   },
   {
-    title: "Breadcrumbs",
-    href: "/breadcrumbs",
-    icon: "bi bi-link",
+    title: "Tasks",
+    href: "/Tasks",
+    icon: "bi bi-list-task",
   },
  
 ]
@@ -33,11 +38,6 @@ const UserNavigation= [
     title: "Users",
     href: "/users",
     icon: "bi bi-person-square",
-  },
-  {
-    title: "Tasks",
-    href: "/Tasks",
-    icon: "bi bi-list-task",
   },
   {
     title: "Calendar",
@@ -68,9 +68,8 @@ const Sidebar = () => {
 const token = localStorage.getItem("token");
    const user = token && jwtDecode(token);
   if(loginStatus  === "success") {
-  console.log("sssssssss",user);
-  if(user.role ==="admin"){
  
+  if(user.role ==="admin"){
   }
 }
   //  const navigate = useNavigate();
@@ -113,7 +112,7 @@ const token = localStorage.getItem("token");
             </NavItem>
           ))}</div>
            : 
-           <div>{UserNavigation.map((navi, index) => (
+           <div>{AdminNavigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
               <Link
                 to={navi.href}

@@ -4,16 +4,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card, CardBody, CardSubtitle, CardTitle, Table } from "reactstrap";
 function Datatable() {
-  const [users, setUsers] = useState([]);
+  const [projects, setprojects] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/user/getAll").then((res) => {
+    axios.get("http://localhost:5000/api/project/").then((res) => {
       console.log("res", res);
-      setUsers(res.data);
+      setprojects(res.data);
     });
   }, []);
 
-  console.log("users", users);
+  console.log("users", projects);
   // const actionColumn = [
   //   {
   //     field: "action",
@@ -65,7 +65,7 @@ function Datatable() {
             </tr>
           </thead>
           <tbody>
-            {users?.map((user, index) => (
+            {projects?.map((project, index) => (
               <tr key={index} className="border-top">
                 <td>
                   <div className="d-flex align-items-center p-2">
@@ -77,7 +77,7 @@ function Datatable() {
                       height="45"
                     /> */}
                     <div className="ms-3">
-                      <h6 className="mb-0">{user._id}</h6>
+                      <h6 className="mb-0">{projects._id}</h6>
                       {/* <span className="text-muted">{user.email}</span> */}
                     </div>
                   </div>

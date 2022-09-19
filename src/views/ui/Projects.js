@@ -4,19 +4,17 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { addProject } from "../../slices/projectSlice";
 import { Col, Row } from 'reactstrap';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { InputGroup } from 'react-bootstrap';
+import { useDispatch} from 'react-redux';
 
 export default function Projects() {
 	const [startDte, setDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
-	console.log ("start",startDte)
-	console.log ("end",endDate)
-  const [users, setUsers] = useState([]);
 
+  const [users, setUsers] = useState([]);
+ const dispatch = useDispatch();
   useEffect(() => {
     axios.get("http://localhost:5000/api/user/getAdmin").then((res) => {
       console.log("res", res);
@@ -34,7 +32,7 @@ export default function Projects() {
 console.log(project);
 const handleSubmit = (e) => {
   e.preventDefault();
-
+ dispatch(addProject(project));
   setProject({
     title: "",
     description: "",
@@ -43,6 +41,7 @@ const handleSubmit = (e) => {
     user: ""
   }); 
   console.log("Project =", project);
+ 
 };
 	return (
 		<>	

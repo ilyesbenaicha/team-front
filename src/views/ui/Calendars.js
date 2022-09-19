@@ -2,12 +2,14 @@ import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
+import jwtDecode from "jwt-decode";
 import React, { useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useSelector } from "react-redux";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US")
@@ -46,6 +48,9 @@ const Calendars = ()=> {
   function handleAddEvent() {
     setAllEvents([...allEvents, newEvent]);
   }
+  const loginStatus = useSelector((state)=>state.auth.loginStatus)
+  const token = localStorage.getItem("token");
+     const user = token && jwtDecode(token);
 
   return (
     <Row>
