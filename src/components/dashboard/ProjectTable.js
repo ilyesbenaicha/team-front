@@ -94,7 +94,7 @@ return (
                     <div className="d-flex align-items-center p-2">
 
                       <div className="ms-3">
-                        <h6 className="mb-0">{projects.user.last_name}</h6>
+                        <h6 className="mb-0">{projects.user.first_name}</h6>
                         <span className="text-muted">{projects.user.email}</span>
                       </div>
                     </div>

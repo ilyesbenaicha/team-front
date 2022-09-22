@@ -9,6 +9,8 @@ import bg2 from "../assets/images/bg/bg2.jpg";
 import bg3 from "../assets/images/bg/bg3.jpg";
 import bg4 from "../assets/images/bg/bg4.jpg";
 import TasksTable from "../components/dashboard/TasksTable";
+import { useSelector } from "react-redux";
+import jwtDecode from "jwt-decode";
 
 const BlogData = [
   {
@@ -46,6 +48,9 @@ const BlogData = [
 ];
 
 const Starter = () => {
+ // const loginStatus = useSelector((state)=>state.auth.loginStatus)
+  const token = localStorage.getItem("token");
+     const user = token && jwtDecode(token);
   return (
     <div>
       {/***Top Cards***/}
@@ -65,8 +70,8 @@ const Starter = () => {
           <ProjectTables />
         </Col> */}
         <Col lg="12">
-      <TasksTable/>
-        </Col>
+      {user?.role ==="SuperAdmin"? <ProjectTables />: null}
+{user?.role ==="Admin"?        <TasksTable/> :null}      </Col>
       </Row>
       {/***Blog Cards***/}
       <Row>

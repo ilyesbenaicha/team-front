@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
 import Swal from "sweetalert2";
+import jwtDecode from "jwt-decode";
 // import {toast} from "react-toastify";
 function Addtasks() {
   const [startDte, setDate] = useState(new Date());
@@ -23,7 +24,17 @@ function Addtasks() {
     etat : "Do it",
     startDte ,
     endDate,
-    user:""
+    user:"",
+    project:""
+  });
+  const token = localStorage.getItem("token");
+   const user = token && jwtDecode(token);
+  const [project, setProject] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/project/getprojectByuser/",user.id).then((res) => {
+      console.log("res", res);
+      setProject(res.data);
+    });
   });
   const [employer, setEmployer] = useState([]);
 
@@ -49,7 +60,8 @@ function Addtasks() {
       etat:"Do it",
       start_date: "",
       end_date: "",
-      user: ""
+      user: "",
+      project:project,
     }); 
     console.log("task=", task);
   };
@@ -81,24 +93,31 @@ function Addtasks() {
         <FormGroup>
         <Form.Label>Start Date</Form.Label>
         <DatePicker
+         format='yyyy-MM-dd'
                 selected={startDte}
                 onChange={(date) => setDate(date)}
                 selectsStart
                 startDate={startDte}
                 endDate={endDate}
+                value={startDte}
+                onClickOutside={(e) => setTask({ ...task, start_date: e.target.value })}
                 required
             />
+            
              <Form.Control.Feedback type="invalid">
               Please choose a username.
             </Form.Control.Feedback>
                  <Form.Label>End Date</Form.Label>
             <DatePicker	
+            format='yyyy-MM-dd'
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
                 startDate={startDte}
                 endDate={endDate}
                 minDate={startDte}
+                value={endDate}
+                onClickOutside={(e) => setTask({ ...task, end_date: e.target.value })}
                 required
             />
              <Form.Control.Feedback type="invalid">

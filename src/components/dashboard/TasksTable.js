@@ -71,16 +71,16 @@ return (
     <div>
       <Card>
         <CardBody>
-          <CardTitle tag="h5">Project Listing</CardTitle>
+          <CardTitle tag="h5">Tasks Listing</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Overview of the projects
+            Overview of the Tasks
           </CardSubtitle>
 
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
-                <th>Team Lead</th>
-                <th>Project</th>
+                <th>Developer</th>
+                <th>tasks</th>
 
                 <th>Status</th>
                 <th>Weeks</th>
@@ -114,7 +114,7 @@ return (
                       <span className="p-2 bg-danger rounded-circle d-inline-block ms-3"></span>
                     )
                     : (
-                      <span className="p-2 bg-white rounded-circle d-inline-block ms-3"></span>
+                      <span className="p-2 bg-success rounded-circle d-inline-block ms-3"></span>
                     )}
                   </td>
                   <td>{tasks.etat}</td>

@@ -3,13 +3,14 @@ import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import jwtDecode from "jwt-decode";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addCalander, getCalendar } from "../../slices/calanderSlice";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US")
@@ -23,31 +24,40 @@ const localizer = dateFnsLocalizer({
 });
 
 const events = [
-  {
-    title: "Big Meeting",
-    allDay: true,
-    start: new Date(2022, 10, 0),
-    end: new Date(2022, 10, 5)
-  },
-  {
-    title: "Vacation",
+     {
+     title: "Big Meeting",
+     allDay: true,
+     start: new Date(2022, 10, 0),
+      end: new Date(2022, 10, 5)
+   },
+   {
+     title: "Vacation",
     start: new Date(2021, 6, 7),
-    end: new Date(2021, 6, 10)
-  },
-  {
-    title: "Conference",
-    start: new Date(2021, 6, 20),
-    end: new Date(2021, 6, 23)
-  }
-];
+     end: new Date(2021, 6, 10)
+   },
+   {    title: "Conference",
+  start: new Date(2021, 6, 20),
+     end: new Date(2021, 6, 23)
+   }
+ ];
 
 const Calendars = ()=> {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
+ // const events = useSelector(state=>state.calendars.events)
   const [allEvents, setAllEvents] = useState(events);
-
+  const dispatch = useDispatch();
   function handleAddEvent() {
     setAllEvents([...allEvents, newEvent]);
+    console.log("allEvents",allEvents);
+    dispatch(addCalander(newEvent))
+    console.log("new event",newEvent);
   }
+  useEffect(() => {
+    dispatch(getCalendar())
+  }, [dispatch]);
+  useEffect(() => {
+    setAllEvents(allEvents)
+  }, [allEvents]);
   const loginStatus = useSelector((state)=>state.auth.loginStatus)
   const token = localStorage.getItem("token");
      const user = token && jwtDecode(token);
@@ -88,8 +98,9 @@ const Calendars = ()=> {
         </button>
       </div></Col>
      <Col md="auto"> <Calendar
+        dispatch={dispatch}
         localizer={localizer}
-        events={allEvents}  
+        events={allEvents}
         startAccessor="start"
         endAccessor="end"
         style={{ height: "500px", margin: "50px" }}

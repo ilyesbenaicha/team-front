@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { FormSelect } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,6 +17,13 @@ function TasksList() {
     setTasks(taskList)
   }, [taskList]); 
 console.log("listOfTasks",taskList)
+const [users ,setUsers] =useState([])
+useEffect(() => {
+  axios.get("http://localhost:5000/api/project/getprojectByuser").then((res) => {
+    console.log("res", res);
+    setUsers(res.data);
+  });
+}, []);
   return (
     <div>
     <Row>
@@ -27,8 +35,8 @@ console.log("listOfTasks",taskList)
    Total  {tasks.length} 
         </CardText>
     </Card></Col> <Col md="3" lg="6">
-        <FormSelect>
-            <option> </option>
+        <FormSelect >
+            <option>team project</option>
         </FormSelect>
     </Col></Row>
     <Col md="6" lg="3">

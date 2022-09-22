@@ -7,29 +7,33 @@ import Form from 'react-bootstrap/Form';
 import { addProject } from "../../slices/projectSlice";
 import { Col, Row } from 'reactstrap';
 import axios from 'axios';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
+import { CircularProgress } from '@mui/material';
 
 export default function Projects() {
 	const [startDte, setDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
-
-  const [users, setUsers] = useState([]);
- const dispatch = useDispatch();
   useEffect(() => {
     axios.get("http://localhost:5000/api/user/getAdmin").then((res) => {
       console.log("res", res);
       setUsers(res.data);
     });
   }, []);
-	const [project,setProject] = useState({
-    title: "",
+
+  const projectState = useSelector((state)=>state.projects)
+  
+  const [users, setUsers] = useState([]);
+  const [project,setProject] = useState({
+     title: "",
     description: "",
     start_date: "",
     end_date: "",
     user: ""
-		
 	   })
 console.log(project);
+ const dispatch = useDispatch();
+
+
 const handleSubmit = (e) => {
   e.preventDefault();
  dispatch(addProject(project));
@@ -45,11 +49,13 @@ const handleSubmit = (e) => {
 };
 	return (
 		<>	
-	
+	 {/* { projectState.addProjectStatus === "pending" ?(
+  <CircularProgress size={24} color = "secondary"/>
+ ): "Add project"} */}
 	<Form onSubmit={handleSubmit}>
       <Row className="mb-5">
         <Form.Group as={Col}  md="3" controlId="formGridEmail">
-          <Form.Label>title</Form.Label>
+          <Form.Label>Title</Form.Label>
           <Form.Control type="text" placeholder="Enter title" 
 
 value={project.title}
@@ -58,7 +64,7 @@ value={project.title}
         </Form.Group>
 
         <Form.Group as={Col} md="6"   controlId="exampleForm.ControlTextarea1">
-          <Form.Label>description</Form.Label>
+          <Form.Label>Description</Form.Label>
           <Form.Control as="textarea" 
           value={project.description}
           onChange={(e) => setProject({ ...project, description: e.target.value })}
@@ -107,7 +113,7 @@ value={project.title}
         </Form.Group>
     
         <Form.Group as={Col}   md="4" controlId="formGridState">
-          <Form.Label>admin</Form.Label> <Form.Select defaultValue="Choose..."
+          <Form.Label>Admin</Form.Label> <Form.Select defaultValue="Choose..."
                             onChange={(e) => setProject({ ...project, user: e.target.value })}
 
           >
