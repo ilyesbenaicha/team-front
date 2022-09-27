@@ -2,9 +2,6 @@ import { Button, Nav, NavItem } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import { useSelector } from "react-redux";
-
-
-
 const AdminNavigation =[
   {
     title: "Dashboard",
@@ -26,7 +23,6 @@ const AdminNavigation =[
     href: "/Tasks",
     icon: "bi bi-list-task",
   },
- 
 ]
 const UserNavigation= [
   {
@@ -44,23 +40,12 @@ const UserNavigation= [
     href: "/calendar",
     icon: "bi bi-calendar",
   },
-  {
-    title: "Cards",
-    href: "/cards",
-    icon: "bi bi-card-text",
-  },
-  {
-    title: "Grid",
-    href: "/grid",
-    icon: "bi bi-columns",
-  },
+
   {
     title:"Project",
     href : "/project",
     icon: "bi bi-folder",
   },
-
-
 ];
 
 const Sidebar = () => {
@@ -72,11 +57,6 @@ const token = localStorage.getItem("token");
   if(user.role ==="admin"){
   }
 }
-  //  const navigate = useNavigate();
-  // //  if( token == null) {
-  // //    console.log('token null aaaa',token)
-  // //    navigate("/");
-  // //   }
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };

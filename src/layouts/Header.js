@@ -49,7 +49,7 @@ const Header = () => {
     <Navbar color="white" light expand="md" className="fix-header">
       <div className="d-flex align-items-center">
         <div className="d-lg-block d-none me-5 pe-3">
-          <Logo />
+          Team
         </div>
         <NavbarBrand href="/">
           <LogoWhite className="d-lg-none" />
@@ -84,11 +84,7 @@ const Header = () => {
               Starter
             </Link> */}
           </NavItem>
-          <NavItem>
-            <Link to="/about" className="nav-link">
-              About
-            </Link>
-          </NavItem>
+
           <UncontrolledDropdown inNavbar nav>
             <DropdownToggle caret nav>
               DD Menu
@@ -112,8 +108,8 @@ const Header = () => {
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem header>Info</DropdownItem>
-            <DropdownItem> <Link to="/myacount" className="nav-link">
-             My Account
+            <DropdownItem> <Link to="/reset" className="nav-link">
+             Reset password
             </Link></DropdownItem>
             <DropdownItem>Edit Profile</DropdownItem>
             <DropdownItem divider />

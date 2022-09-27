@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import jwtDecode from "jwt-decode";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardBody,
@@ -8,6 +10,9 @@ import {
   ListGroupItem,
   Button,
 } from "reactstrap";
+
+
+
 
 const FeedData = [
   {
@@ -49,6 +54,25 @@ const FeedData = [
 ];
 
 const Feeds = () => {
+  const token = localStorage.getItem("token");
+   const user = token && jwtDecode(token);
+  const [project, setProject] = useState([]);
+  //console.log("user",user);
+  //console.log("id of user",user.id);
+  useEffect(() => {
+      try {
+      const result=axios.get(`http://localhost:5000/api/project/getprojectByuser/${user.id}`).then((res)=>{
+          console.log("res.data",res.data);
+        console.log("res",res);
+        setProject(res.data); 
+        })
+        console.log("result",result);
+       
+      } catch (error) {
+        console.log(error);
+      }
+    
+  },[user.id]);  
   return (
     <Card>
       <CardBody>
@@ -57,7 +81,7 @@ const Feeds = () => {
           Widget you can use
         </CardSubtitle>
         <ListGroup flush className="mt-4">
-          {FeedData.map((feed, index) => (
+          {project.map((el, index) => (
             <ListGroupItem
               key={index}
               action
@@ -68,13 +92,13 @@ const Feeds = () => {
               <Button
                 className="rounded-circle me-3"
                 size="sm"
-                color={feed.color}
+                color={el.color}
               >
-                <i className={feed.icon}></i>
+                <i className={el.icon}></i>
               </Button>
-              {feed.title}
-              <small className="ms-auto text-muted text-small">
-                {feed.date}
+              {el.title}
+              <small className="ms-auto text-muted text-small" >
+                {el.createdAt}
               </small>
             </ListGroupItem>
           ))}

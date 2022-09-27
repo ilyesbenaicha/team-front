@@ -1,4 +1,5 @@
 import { lazy } from "react";
+
 //import New from "../pages/New";
 
 /****Layouts*****/
@@ -10,10 +11,10 @@ const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
 const Users = lazy(() => import("../views/ui/Users"));
 const Task = lazy(() => import("../views/ui/Task"));
-const MyAcount= lazy(()=>import("../views/ui/MyAcount"))
+
 //const Buttons = lazy(() => import("../views/ui/Buttons"));
 const Cards = lazy(() => import("../views/ui/Cards"));
-const Grid = lazy(() => import("../views/ui/Grid"));
+const Resetpassword = lazy(() => import("../views/ui/Resetpassword"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
 const Calendars = lazy(()=> import("../views/ui/Calendars"))
@@ -36,12 +37,12 @@ const ThemeRoutes = [
       { path: "/tasks", exact: true, element: <Task /> },
       { path: "/calendar", exact: true, element: <Calendars /> },
       { path: "/cards", exact: true, element: <Cards /> },
-      { path: "/grid", exact: true, element: <Grid /> },
+      { path: "/reset", exact: true, element: <Resetpassword /> },
       { path: "/table", exact: true, element: <Tables /> },
       { path: "/forms", exact: true, element: <Forms /> },
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
       { path: "/users/new", exact: true, element: <New /> },
-      { path: "/myacount", exact: true, element: <MyAcount /> },
+   
 
     ],
   },

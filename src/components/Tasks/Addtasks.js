@@ -1,6 +1,6 @@
 import { Alert, Button, CircularProgress, FormGroup } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Input, Label, Row  } from "reactstrap";
+import { Col, Input, Label, Row  } from "reactstrap";
 import { useDispatch,useSelector } from "react-redux";
 import { addTask } from "../../slices/taskSlice";
 import DatePicker from "react-datepicker";
@@ -9,14 +9,15 @@ import Form from 'react-bootstrap/Form';
 import axios from "axios";
 import Swal from "sweetalert2";
 import jwtDecode from "jwt-decode";
+import { FormSelect } from "react-bootstrap";
 // import {toast} from "react-toastify";
 function Addtasks() {
   const [startDte, setDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
-	console.log ("start",startDte)
-	console.log ("end",endDate)
+	//console.log ("start",startDte)
+	//console.log ("end",endDate)
   const taskState = useSelector((state)=>state.tasks)
- console.log(taskState);
+ //console.log(taskState);
   const dispatch = useDispatch();
   const [task, setTask] = useState({
     title: "",
@@ -25,17 +26,30 @@ function Addtasks() {
     startDte ,
     endDate,
     user:"",
-    project:""
+    Project:""
   });
   const token = localStorage.getItem("token");
    const user = token && jwtDecode(token);
   const [project, setProject] = useState([]);
+  //console.log("user",user);
+  //console.log("id of user",user.id);
   useEffect(() => {
-    axios.get("http://localhost:5000/api/project/getprojectByuser/",user.id).then((res) => {
-      console.log("res", res);
-      setProject(res.data);
-    });
-  });
+      try {
+      const result=axios.get(`http://localhost:5000/api/project/getprojectByuser/${user.id}`).then((res)=>{
+          console.log("res.data",res.data);
+        console.log("res",res);
+        setProject(res.data); 
+        })
+        console.log("result",result);
+       
+      } catch (error) {
+        console.log(error);
+      }
+    
+  },[user.id]);  
+
+  
+  //console.log("project",project);
   const [employer, setEmployer] = useState([]);
 
   useEffect(() => {
@@ -61,14 +75,23 @@ function Addtasks() {
       start_date: "",
       end_date: "",
       user: "",
-      project:project,
+      Project: "",
     }); 
     console.log("task=", task);
   };
+  console.log("task=", task);
+  console.log("user",user);
+  console.log("project",project);
   return (
     <>
     
       <Form onSubmit={handleSubmit} noValidate validated={validated}><Row>
+      <Col md="3" lg="6">
+        <FormSelect  onChange={(e) => setTask({ ...task, Project: e.target.value })}>{
+          project.map((el)=>(<option value={el._id}>{el.title}</option>))
+        }
+        </FormSelect>
+    </Col>
       <Form.Group controlId="formGridEmail">
           <Form.Label>title</Form.Label>
           <Form.Control
@@ -143,6 +166,7 @@ function Addtasks() {
                 }
                 
                 </Input>  
+                
                 <Form.Control.Feedback type="invalid">
               Please choose a username.
             </Form.Control.Feedback>

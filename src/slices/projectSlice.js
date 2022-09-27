@@ -2,7 +2,7 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const initialState= {
     projects:[],
-    token : localStorage.getItem("token"),
+    token : localStorage.getItem("token"),    
     addProjectStatus: "",
     addProjectError: "",
     getProjectStatus: "",
@@ -28,6 +28,17 @@ async (project,{rejectWithValue})=>{
 export const getProject = createAsyncThunk('projects/getProject',async(id,{rejectWithValue})=>{
     try {
         const response=  await axios.get('http://localhost:5000/api/project/',{
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+          return response.data
+    } catch (error) {
+        console.log(error);
+        return rejectWithValue(error.response.data)
+    }
+})
+export const getProjectbyuser = createAsyncThunk('projects/getProjectbyuser',async(id,{rejectWithValue})=>{
+    try {
+        const response=axios.get('http://localhost:5000/api/project/getprojectByuser/',{
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
           return response.data
