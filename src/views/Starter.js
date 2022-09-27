@@ -9,45 +9,23 @@ import bg2 from "../assets/images/bg/bg2.jpg";
 import bg3 from "../assets/images/bg/bg3.jpg";
 import bg4 from "../assets/images/bg/bg4.jpg";
 import TasksTable from "../components/dashboard/TasksTable";
-import { useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProject } from "../slices/projectSlice";
 
-const BlogData = [
-  {
-    image: bg1,
-    title: "This is simple blog",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-  {
-    image: bg2,
-    title: "Lets be simple blog",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-  {
-    image: bg3,
-    title: "Don't Lamp blog",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-  {
-    image: bg4,
-    title: "Simple is beautiful",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-];
 
 const Starter = () => {
+  const projectList= useSelector(state=>state.projects.projects)
+
+  const [projects, setProjects] = useState(projectList);
+const dispatch = useDispatch()
+useEffect(() => {
+  dispatch(getProject())
+}, [dispatch]);
+useEffect(() => {
+  setProjects(projectList)
+}, [projectList])
  // const loginStatus = useSelector((state)=>state.auth.loginStatus)
   const token = localStorage.getItem("token");
      const user = token && jwtDecode(token);
@@ -74,8 +52,9 @@ const Starter = () => {
 {user?.role ==="Admin"?        <TasksTable/> :null}      </Col>
       </Row>
       {/***Blog Cards***/}
+      {user?.role ==="SuperAdmin"? 
       <Row>
-        {BlogData.map((blg, index) => (
+        {projects.map((blg, index) => (
           <Col sm="6" lg="6" xl="3" key={index}>
             <Blog
               image={blg.image}
@@ -86,7 +65,7 @@ const Starter = () => {
             />
           </Col>
         ))}
-      </Row>
+      </Row>:null}
     </div>
   );
 };

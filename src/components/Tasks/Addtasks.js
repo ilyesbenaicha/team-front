@@ -23,8 +23,8 @@ function Addtasks() {
     title: "",
     description: "",
     etat : "Do it",
-    startDte ,
-    endDate,
+    startDte :"" ,
+    endDate :"",
     user:"",
     Project:""
   });
@@ -49,7 +49,7 @@ function Addtasks() {
   },[user.id]);  
 
   
-  //console.log("project",project);
+  console.log("project",project._id);
   const [employer, setEmployer] = useState([]);
 
   useEffect(() => {
@@ -75,22 +75,36 @@ function Addtasks() {
       start_date: "",
       end_date: "",
       user: "",
-      Project: "",
+      project: "",
     }); 
-    console.log("task=", task);
   };
   console.log("task=", task);
-  console.log("user",user);
-  console.log("project",project);
   return (
     <>
     
       <Form onSubmit={handleSubmit} noValidate validated={validated}><Row>
       <Col md="3" lg="6">
-        <FormSelect  onChange={(e) => setTask({ ...task, Project: e.target.value })}>{
-          project.map((el)=>(<option value={el._id}>{el.title}</option>))
-        }
-        </FormSelect>
+      <FormGroup>
+                <Label for="exampleSelectMulti">Developer</Label>
+                <Input
+                  id="exampleSelectMulti"
+                  multiple
+                  name="selectMulti"
+                  type="select"
+                  onChange={(e) => setTask({ ...task, project: e.target.value })}
+                  required
+                >
+                {
+                  project.map((el)=>(<option value={el._id}>{el.title}</option>))
+                }
+                
+                </Input>  
+                
+                <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
+              </FormGroup>
+        
     </Col>
       <Form.Group controlId="formGridEmail">
           <Form.Label>title</Form.Label>

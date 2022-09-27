@@ -1,6 +1,7 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
+
 import {
   Card,
   CardBody,
@@ -10,6 +11,8 @@ import {
   ListGroupItem,
   Button,
 } from "reactstrap";
+import DayJS from 'react-dayjs';
+import moment from "moment/moment";
 
 
 
@@ -73,6 +76,16 @@ const Feeds = () => {
       }
     
   },[user.id]);  
+  let
+  date1 = moment( "2016-04-27" ),
+  date2 = moment( "2016-09-05" ),
+  date1Week = date1.week(),
+  date2Week = date2.week(),
+  deltaWeek = Math.abs( date1Week - date2Week );
+ 
+console.log( date1.format( "YYYY-MM-DDTHH:mm:ss.SSSZZ" ), date1Week );
+console.log( date2.format( "YYYY-MM-DDTHH:mm:ss.SSSZZ" ), date2Week );
+console.log( deltaWeek );
   return (
     <Card>
       <CardBody>
@@ -88,17 +101,11 @@ const Feeds = () => {
               href="/"
               tag="a"
               className="d-flex align-items-center p-3 border-0"
+              color="red"
             >
-              <Button
-                className="rounded-circle me-3"
-                size="sm"
-                color={el.color}
-              >
-                <i className={el.icon}></i>
-              </Button>
               {el.title}
               <small className="ms-auto text-muted text-small" >
-                {el.createdAt}
+               <DayJS format="DD-MM-YYYY" className="date" element="span">{el.createdAt}</DayJS> 
               </small>
             </ListGroupItem>
           ))}
