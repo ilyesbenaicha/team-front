@@ -20,7 +20,7 @@ export default function Projects() {
     });
   }, []);
 
-  const projectState = useSelector((state)=>state.projects)
+  //const projectState = useSelector((state)=>state.projects)
   
   const [users, setUsers] = useState([]);
   const [project,setProject] = useState({

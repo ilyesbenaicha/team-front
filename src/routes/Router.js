@@ -20,7 +20,8 @@ const Forms = lazy(() => import("../views/ui/Forms"));
 const Calendars = lazy(()=> import("../views/ui/Calendars"))
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const New = lazy(() => import("../pages/New"));
-const Projects= lazy(()=> import("../views/ui/Projects"))
+const Projects= lazy(()=> import("../views/ui/Projects"));
+const ListeTasks= lazy(()=>import("../views/ui/ListeTask/ListTaskItem"))
 /*****Routes******/
 const ThemeRoutes = [
   { path: "/login", exact: true, element: <SignIn /> },
@@ -42,7 +43,7 @@ const ThemeRoutes = [
       { path: "/forms", exact: true, element: <Forms /> },
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
       { path: "/users/new", exact: true, element: <New /> },
-   
+      {path: "/TasksList",exact:true,element: <ListeTasks/>}
 
     ],
   },

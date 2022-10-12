@@ -56,6 +56,21 @@ async(_id,{rejectWithValue})=>{
         return rejectWithValue(error.response.data)
     }
 })
+export const getOneUser = createAsyncThunk("user/getOneUser",
+async(_id,{rejectWithValue})=>{ 
+    console.log(_id);
+    try {
+      const response=  await axios.delete('http://localhost:5000/api/user/'+_id,{
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+       
+    })
+      return response.data
+
+    } catch (error) {
+        console.log(error);
+        return rejectWithValue(error.response.data)
+    }
+})
 const userSlice = createSlice({
     name:'users',
     initialState,

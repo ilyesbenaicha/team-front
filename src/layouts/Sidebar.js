@@ -23,6 +23,11 @@ const AdminNavigation =[
     href: "/Tasks",
     icon: "bi bi-list-task",
   },
+  {
+    title: "Task List",
+    href: "/TasksList",
+    icon: "bi bi-list-task",
+  },
 ]
 const UserNavigation= [
   {

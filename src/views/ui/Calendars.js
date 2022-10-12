@@ -80,7 +80,7 @@ const Calendars = ()=> {
           style={{ marginRight: "10px" }}
           selectsStart
           startDate={newEvent.start}
-                endDate={newEvent.end}
+          endDate={newEvent.end}
           selected={newEvent.start}
           onChange={(start) => setNewEvent({ ...newEvent, start })}
         />

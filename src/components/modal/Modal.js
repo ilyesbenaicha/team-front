@@ -70,7 +70,7 @@ export default function Example() {
       showConfirmButton: false,
       timer: 1500
     })
-           // <Alert severity="success">User Added ...</Alert>
+          // <Alert severity="success">User Added ...</Alert>
           ): null} 
        <Container fluid="md">
           <Form  onSubmit={handelSubmit} noValidate validated={validated}> 

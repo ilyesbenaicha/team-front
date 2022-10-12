@@ -5,15 +5,17 @@ import styles from "./Table.module.css";
 import TableFooter from "../tableFooter/TableFooter";
 import Modal from "../../modal/Modal"
 import { deletUser } from "../../../slices/userSlice";
+import { useNavigate } from 'react-router-dom';
 import Viewuser from "../../Viewuser";
 import Swal from "sweetalert2";
-import useAuth from "../../../hooks/useAuth";
 const Table = ({ data, rowsPerPage }) => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(3);
   const { slice, range } = useTable(data, page, rowsPerPage);
   const dispatch = useDispatch();
-
-  const {email,status} =useAuth
+  const history = useNavigate();
+const handleEdit = (_id)=>{
+ console.log(_id);
+}
   const handleDelete = (_id)=>{
     Swal.fire({
       title: 'Are you sure?',
@@ -64,14 +66,21 @@ const Table = ({ data, rowsPerPage }) => {
             data-bs-target="#myModal"
             onClick={()=> handleDelete(el._id)}
           >Delete
-          </button>  <Viewuser/></td>
+          </button> <button type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+           // onClick={()=>handleEdit(el._id)} 
+            >
+            <Viewuser id={el._id}/>
+           
+          </button> </td>
             </tr>
           ))}
         </tbody>
       </table>
       <TableFooter range={range} slice={slice} setPage={setPage} page={page} />
-      <p> current Users : {email}</p>
-      <p> status : {status}</p>
+    
 
     </>
   );

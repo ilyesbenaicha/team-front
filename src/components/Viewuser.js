@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import { useDispatch } from 'react-redux';
 import { Container, Row } from 'reactstrap';
+import { getUser } from '../slices/userSlice';
 
-function Viewuser() {
+function Viewuser(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const [oneUser,setoneUser] = useState({})
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getUser())
+  }, [dispatch]);
   return (
+    
     <>
       <Button variant="primary" onClick={handleShow}>
        Viewuser
@@ -20,6 +27,7 @@ function Viewuser() {
       <Modal 	size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit User</Modal.Title>
+          <Modal.Title>{props.id}</Modal.Title>
         </Modal.Header>
    
         <Modal.Body>

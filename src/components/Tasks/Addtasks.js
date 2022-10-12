@@ -10,12 +10,13 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import jwtDecode from "jwt-decode";
 import { FormSelect } from "react-bootstrap";
+import { format } from "date-fns";
 // import {toast} from "react-toastify";
 function Addtasks() {
-  const [startDte, setDate] = useState(new Date());
-	const [endDate, setEndDate] = useState(new Date());
-	//console.log ("start",startDte)
-	//console.log ("end",endDate)
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+	console.log ("start",startDate)
+	console.log ("end",endDate)
   const taskState = useSelector((state)=>state.tasks)
  //console.log(taskState);
   const dispatch = useDispatch();
@@ -23,8 +24,8 @@ function Addtasks() {
     title: "",
     description: "",
     etat : "Do it",
-    startDte :"" ,
-    endDate :"",
+    start_date :"" ,
+    end_date :"",
     user:"",
     Project:""
   });
@@ -33,6 +34,7 @@ function Addtasks() {
   const [project, setProject] = useState([]);
   //console.log("user",user);
   //console.log("id of user",user.id);
+  //const [Cdate, setDatee] = useState(new Date().toLocaleDateString('fr-FR'));
   useEffect(() => {
       try {
       const result=axios.get(`http://localhost:5000/api/project/getprojectByuser/${user.id}`).then((res)=>{
@@ -127,40 +129,25 @@ function Addtasks() {
               Please choose a username.
             </Form.Control.Feedback>
     <br/>
-        <FormGroup>
-        <Form.Label>Start Date</Form.Label>
-        <DatePicker
-         format='yyyy-MM-dd'
-                selected={startDte}
-                onChange={(date) => setDate(date)}
-                selectsStart
-                startDate={startDte}
-                endDate={endDate}
-                value={startDte}
-                onClickOutside={(e) => setTask({ ...task, start_date: e.target.value })}
-                required
-            />
-            
-             <Form.Control.Feedback type="invalid">
-              Please choose a username.
-            </Form.Control.Feedback>
-                 <Form.Label>End Date</Form.Label>
-            <DatePicker	
-            format='yyyy-MM-dd'
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-                selectsEnd
-                startDate={startDte}
-                endDate={endDate}
-                minDate={startDte}
-                value={endDate}
-                onClickOutside={(e) => setTask({ ...task, end_date: e.target.value })}
-                required
-            />
-             <Form.Control.Feedback type="invalid">
-              Please choose a username.
-            </Form.Control.Feedback>
-            </FormGroup>
+    <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        selectsStart
+        startDate={startDate}
+        endDate={endDate}
+        
+        onSelect={(e) => setTask({ ...task, start_date: e.target.selected })}
+      />
+      <DatePicker
+        selected={endDate}
+        onChange={(date) => setEndDate(date)}
+        selectsEnd
+        startDate={startDate}
+        endDate={endDate}
+        minDate={startDate}
+        onSelect={(e) => setTask({ ...task, end_date: e.target.selected })}
+      />
+        
  <br/>
  <FormGroup>
                 <Label for="exampleSelectMulti">Developer</Label>
