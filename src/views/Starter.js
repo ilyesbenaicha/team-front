@@ -4,10 +4,7 @@ import Feeds from "../components/dashboard/Feeds";
 import ProjectTables from "../components/dashboard/ProjectTable";
 
 import Blog from "../components/dashboard/Blog";
-import bg1 from "../assets/images/bg/bg1.jpg";
-import bg2 from "../assets/images/bg/bg2.jpg";
-import bg3 from "../assets/images/bg/bg3.jpg";
-import bg4 from "../assets/images/bg/bg4.jpg";
+
 import TasksTable from "../components/dashboard/TasksTable";
 import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
@@ -57,11 +54,9 @@ useEffect(() => {
         {projects.map((blg, index) => (
           <Col sm="6" lg="6" xl="3" key={index}>
             <Blog
-              image={blg.image}
               title={blg.title}
-              subtitle={blg.subtitle}
               text={blg.description}
-              color={blg.btnbg}
+              createdAt={blg.createdAt}
             />
           </Col>
         ))}

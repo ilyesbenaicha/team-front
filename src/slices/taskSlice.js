@@ -39,6 +39,17 @@ const   initialState={
             return rejectWithValue(error.response.data)
         }
     })
+    export const getTaskByproject = createAsyncThunk('tasks/getTaskByProject',async(id,{rejectWithValue})=>{
+        try {
+            const response=  await axios.get('http://localhost:5000/api/task/getTaskByProject/'+id,{
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            })
+              return response.data
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue(error.response.data)
+        }
+    })
     export const updateTask = createAsyncThunk('tasks/updateTask',async(task,{rejectWithValue,dispatch})=>{
         try {
             await axios.put('http://localhost:5000/api/task/',task,{

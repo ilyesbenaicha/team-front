@@ -7,7 +7,7 @@ import Addtasks from "./Addtasks";
 import { COLUMN_NAMES } from "./constants";
 import {useDispatch, useSelector} from 'react-redux'
 import "./tasks.css";
-import { getTask, updateTaskeByName } from "../../slices/taskSlice";
+import { getTask, getTaskByproject, updateTaskeByName } from "../../slices/taskSlice";
 import TasksList from "./TasksList";
 import jwtDecode from "jwt-decode";
 

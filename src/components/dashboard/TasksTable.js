@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
-import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Table, CardText } from "reactstrap";
 import { getTask } from "../../slices/taskSlice";
 // import user1 from "../../assets/images/users/user1.jpg";
 // import user2 from "../../assets/images/users/user2.jpg";
@@ -67,8 +68,17 @@ const TasksTable = () => {
       setTasks(taskList)
     }, [taskList]); 
 
+let arry= tasks.project?.map((project)=>project.title)
+console.log("array of project", arry);  
 return (
     <div>
+    <Col lg="3">
+   <Card body color="primary" inverse>
+        <CardTitle tag="h5">total</CardTitle>
+        <CardText>
+        {tasks.length}
+        </CardText>
+      </Card></Col>
       <Card>
         <CardBody>
           <CardTitle tag="h5">Tasks Listing</CardTitle>
@@ -118,7 +128,7 @@ return (
                     )}
                   </td>
                   <td>{tasks.etat}</td>
-                  <td>{tasks.budget}</td>
+                  <td>{arry}</td>
                 </tr>
               ))}
             </tbody>

@@ -9,7 +9,7 @@ import {
   ListGroup,
   CardSubtitle,
   ListGroupItem,
-  Button,
+  CardText,
 } from "reactstrap";
 import DayJS from 'react-dayjs';
 import moment from "moment/moment";
@@ -17,44 +17,44 @@ import moment from "moment/moment";
 
 
 
-const FeedData = [
-  {
-    title: "Cras justo odio",
-    icon: "bi bi-bell",
-    color: "primary",
-    date: "6 minute ago",
-  },
-  {
-    title: "New user registered.",
-    icon: "bi bi-person",
-    color: "info",
-    date: "6 minute ago",
-  },
-  {
-    title: "Server #1 overloaded.",
-    icon: "bi bi-hdd",
-    color: "danger",
-    date: "6 minute ago",
-  },
-  {
-    title: "New order received.",
-    icon: "bi bi-bag-check",
-    color: "success",
-    date: "6 minute ago",
-  },
-  {
-    title: "Cras justo odio",
-    icon: "bi bi-bell",
-    color: "dark",
-    date: "6 minute ago",
-  },
-  {
-    title: "Server #1 overloaded.",
-    icon: "bi bi-hdd",
-    color: "warning",
-    date: "6 minute ago",
-  },
-];
+// const FeedData = [
+//   {
+//     title: "Cras justo odio",
+//     icon: "bi bi-bell",
+//     color: "primary",
+//     date: "6 minute ago",
+//   },
+//   {
+//     title: "New user registered.",
+//     icon: "bi bi-person",
+//     color: "info",
+//     date: "6 minute ago",
+//   },
+//   {
+//     title: "Server #1 overloaded.",
+//     icon: "bi bi-hdd",
+//     color: "danger",
+//     date: "6 minute ago",
+//   },
+//   {
+//     title: "New order received.",
+//     icon: "bi bi-bag-check",
+//     color: "success",
+//     date: "6 minute ago",
+//   },
+//   {
+//     title: "Cras justo odio",
+//     icon: "bi bi-bell",
+//     color: "dark",
+//     date: "6 minute ago",
+//   },
+//   {
+//     title: "Server #1 overloaded.",
+//     icon: "bi bi-hdd",
+//     color: "warning",
+//     date: "6 minute ago",
+//   },
+// ];
 
 const Feeds = () => {
   const token = localStorage.getItem("token");
@@ -76,9 +76,10 @@ const Feeds = () => {
       }
     
   },[user.id]);  
+
   let
-  date1 = moment( "2016-04-27" ),
-  date2 = moment( "2016-09-05" ),
+  date1 = moment(new Date()),
+  date2 = moment(new Date() ),
   date1Week = date1.week(),
   date2Week = date2.week(),
   deltaWeek = Math.abs( date1Week - date2Week );
@@ -89,17 +90,16 @@ console.log( deltaWeek );
   return (
     <Card>
       <CardBody>
-        <CardTitle tag="h5">Feeds</CardTitle>
+        <CardTitle tag="h5">Projects</CardTitle>
         <CardSubtitle className="mb-2 text-muted" tag="h6">
-          Widget you can use
+        {/* <CardText>
+   Total  {project.title} 
+        </CardText> */}
         </CardSubtitle>
         <ListGroup flush className="mt-4">
           {project.map((el, index) => (
             <ListGroupItem
               key={index}
-              action
-              href="/"
-              tag="a"
               className="d-flex align-items-center p-3 border-0"
               color="red"
             >

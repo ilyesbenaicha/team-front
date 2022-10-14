@@ -48,11 +48,13 @@ function ListTaskItem() {
   const token = localStorage.getItem("token");
   const user = token && jwtDecode(token);
  const [project, setProject] = useState([]);
+ const [task, setTask]= useState([]);
+
   useEffect(() => {
     try {
     const result=axios.get(`http://localhost:5000/api/project/getprojectByuser/${user.id}`).then((res)=>{
-        //console.log("res.data",res.data);
-      //console.log("res",res);
+        console.log("res.data",res.data);
+      console.log("res",res);
       setProject(res.data); 
       })
       console.log("result",result);
@@ -61,16 +63,14 @@ function ListTaskItem() {
       console.log(error);
     }
 },[user.id]);  
-console.log("project id ", project.map((p)=>(
-  p._id
-)));
+
 
 useEffect(() => {
   try {
-  const result=axios.get(`http://localhost:5000/api/task/getTaskByproject/${proSel._id}`).then((res)=>{
+  const result=axios.get(`http://localhost:5000/api/task/getTaskByproject/${proSel.proSel}`).then((res)=>{
       console.log("res.data",res.data);
     console.log("res",res);
-    setProject(res.data); 
+    setTask(res.data); 
     })
     console.log("result",result);
    
@@ -79,6 +79,7 @@ useEffect(() => {
   }
 
 },[proSel]);  
+console.log("task",task);
   return (
     
     <div>
@@ -92,17 +93,19 @@ useEffect(() => {
         </FormSelect>
     </Col>
               </FormGroup>
-    <h5 className="mb-3">Basic Card</h5>
+    <h5 className="mb-3">Tasks</h5>
     <Row>
-      {BlogData.map((blg, index) => (
+      {task.map((blg, index) => (
         <Col sm="6" lg="6" xl="3" key={index}>
           <TaskItem
 
           
-            title={blg.title}
-            subtitle={blg.subtitle}
-            text={blg.description}
-            color={blg.btn}
+            title={blg?.title}
+            subtitle={blg?.description}
+            etat={blg?.etat}
+            user={blg?.user.id}
+            startdate={blg?.start_date}
+            enddate={blg?.end_date}
           />
         </Col>
       ))}

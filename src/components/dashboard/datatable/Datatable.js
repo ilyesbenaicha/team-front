@@ -77,12 +77,12 @@ function Datatable() {
                       height="45"
                     /> */}
                     <div className="ms-3">
-                      <h6 className="mb-0">{projects._id}</h6>
+                      <h6 className="mb-0">{project._id}</h6>
                       {/* <span className="text-muted">{user.email}</span> */}
                     </div>
                   </div>
                 </td>
-                <td>{user.email}</td>
+                <td>{project.title}</td>
                 {/* <td>
                   {tdata.status === "pending" ? (
                     <span className="p-2 bg-danger rounded-circle d-inline-block ms-3"></span>
@@ -92,8 +92,8 @@ function Datatable() {
                     <span className="p-2 bg-success rounded-circle d-inline-block ms-3"></span>
                   )}
                 </td> */}
-                <td>{user.name}</td>
-                <td>{user.role}</td>
+                <td>{project.description}</td>
+                
               </tr>
             ))}
           </tbody>

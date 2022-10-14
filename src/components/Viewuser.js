@@ -5,17 +5,19 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from 'react-redux';
 import { Container, Row } from 'reactstrap';
-import { getUser } from '../slices/userSlice';
+import { getOneUser } from '../slices/userSlice';
 
-function Viewuser(props) {
+function Viewuser(theUser) {
   const [show, setShow] = useState(false);
-
+  //const id = props._id
+ // console.log("id of user ",id);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+ // const handleEdit=() => 
   const [oneUser,setoneUser] = useState({})
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getUser())
+    dispatch(getOneUser())
   }, [dispatch]);
   return (
     
@@ -27,7 +29,9 @@ function Viewuser(props) {
       <Modal 	size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit User</Modal.Title>
-          <Modal.Title>{props.id}</Modal.Title>
+          <Modal.Title>{theUser.id}</Modal.Title>
+          <Modal.Title>{theUser.last_name}</Modal.Title>
+
         </Modal.Header>
    
         <Modal.Body>
@@ -52,7 +56,6 @@ function Viewuser(props) {
               <Form.Control
                 type="FName"
                 autoFocus
-        
                 required
               />
          

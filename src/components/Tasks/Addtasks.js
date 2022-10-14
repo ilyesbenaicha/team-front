@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form';
 import axios from "axios";
 import Swal from "sweetalert2";
 import jwtDecode from "jwt-decode";
-import { FormSelect } from "react-bootstrap";
+import { FormSelect, Offcanvas } from "react-bootstrap";
 import { format } from "date-fns";
 // import {toast} from "react-toastify";
 function Addtasks() {
@@ -27,13 +27,13 @@ function Addtasks() {
     start_date :"" ,
     end_date :"",
     user:"",
-    Project:""
+    project:""
   });
   const token = localStorage.getItem("token");
    const user = token && jwtDecode(token);
   const [project, setProject] = useState([]);
-  //console.log("user",user);
-  //console.log("id of user",user.id);
+  console.log("user",user);
+  console.log("id of user",user.id);
   //const [Cdate, setDatee] = useState(new Date().toLocaleDateString('fr-FR'));
   useEffect(() => {
       try {
@@ -51,7 +51,7 @@ function Addtasks() {
   },[user.id]);  
 
   
-  console.log("project",project._id);
+  
   const [employer, setEmployer] = useState([]);
 
   useEffect(() => {
@@ -81,26 +81,31 @@ function Addtasks() {
     }); 
   };
   console.log("task=", task);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <>
-    
-      <Form onSubmit={handleSubmit} noValidate validated={validated}><Row>
+        <Button variant="primary" size="lg" active onClick={handleShow}>
+        Add
+      </Button>
+      <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Add new Task</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+        <Form onSubmit={handleSubmit} noValidate validated={validated}><Row>
       <Col md="3" lg="6">
       <FormGroup>
-                <Label for="exampleSelectMulti">Developer</Label>
-                <Input
-                  id="exampleSelectMulti"
-                  multiple
-                  name="selectMulti"
-                  type="select"
-                  onChange={(e) => setTask({ ...task, project: e.target.value })}
-                  required
-                >
-                {
+      <Col>
+        <FormSelect  onChange={(e) => setTask({ ...task, project: e.target.value })}>
+        {
                   project.map((el)=>(<option value={el._id}>{el.title}</option>))
                 }
-                
-                </Input>  
+        </FormSelect>
+    </Col>
+               
                 
                 <Form.Control.Feedback type="invalid">
               Please choose a username.
@@ -128,27 +133,26 @@ function Addtasks() {
         <Form.Control.Feedback type="invalid">
               Please choose a username.
             </Form.Control.Feedback>
-    <br/>
-    <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        selectsStart
-        startDate={startDate}
-        endDate={endDate}
-        
-        onSelect={(e) => setTask({ ...task, start_date: e.target.selected })}
-      />
-      <DatePicker
-        selected={endDate}
-        onChange={(date) => setEndDate(date)}
-        selectsEnd
-        startDate={startDate}
-        endDate={endDate}
-        minDate={startDate}
-        onSelect={(e) => setTask({ ...task, end_date: e.target.selected })}
-      />
-        
- <br/>
+     <Col sm={10}>
+     <FormGroup>
+        <Form.Label>Start Date</Form.Label>
+        <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+            />
+                 <Form.Label>End Date</Form.Label>
+            <DatePicker	
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+            />
+            </FormGroup></Col>
  <FormGroup>
                 <Label for="exampleSelectMulti">Developer</Label>
                 <Input
@@ -201,6 +205,10 @@ function Addtasks() {
             <Alert severity="success">Task Added ...</Alert>
           ): null}
      </Row> </Form>
+        </Offcanvas.Body>
+      </Offcanvas>
+    
+     
     </>
   );
 }

@@ -5,8 +5,9 @@ import {
   CardText,
   CardTitle,
   Button,
+  CardFooter,
 } from "reactstrap";
-
+import DayJS from 'react-dayjs';
 const Blog = (props) => {
   return (
     <Card>
@@ -16,6 +17,10 @@ const Blog = (props) => {
         <CardText className="mt-3">{props.text}</CardText>
         <Button color={props.color}>Read More</Button>
       </CardBody>
+      <CardFooter>
+      <DayJS format="DD-MM-YYYY">{props.createdAt}</DayJS>
+        </CardFooter>
+      
     </Card>
   );
 };

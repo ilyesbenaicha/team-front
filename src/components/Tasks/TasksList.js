@@ -43,7 +43,7 @@ useEffect(() => {
       <Card body color="primary" inverse>
         <CardTitle tag="h5">Do it</CardTitle>
         <CardText>
-        {tasks.etat === "Do it"?(<span>{tasks.etat.count}</span>):null}
+        {tasks.etat === "Do it"?(<span>{tasks.etat}</span>):null}
         </CardText>
       </Card>
     </Col>
