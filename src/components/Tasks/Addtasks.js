@@ -60,34 +60,32 @@ function Addtasks() {
       setEmployer(res.data);
     });
   }, []);
-  const [validated, setValidated] = useState(false);
+  
   const handleSubmit = (e) => {
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+    // const form = e.currentTarget;
+    // if (form.checkValidity() === false) {
+    //   e.preventDefault();
+    //   e.stopPropagation();
+    // }
 
-    setValidated(true);
+    // setValidated(true);
     dispatch(addTask(task));
-    setTask({
-      title: "",
-      description: "",
-      etat:"Do it",
-      start_date: "",
-      end_date: "",
-      user: "",
-      project: "",
-    }); 
+    
   };
-  console.log("task=", task);
+  console.log(" new task=", task);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
     <>
-        <Button variant="primary" size="lg" active onClick={handleShow}>
+        <Button    type="submit"
+          variant="contained"
+          size="small"
+          sx={{
+            margin: "0.9rem 0rem",
+            fonFamily: "'Abel','sanSerif'"
+          }} onClick={handleShow}>
         Add
       </Button>
       <Offcanvas show={show} onHide={handleClose}>
@@ -95,7 +93,7 @@ function Addtasks() {
           <Offcanvas.Title>Add new Task</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-        <Form onSubmit={handleSubmit} noValidate validated={validated}><Row>
+        <Form onSubmit={handleSubmit}><Row>
       <Col md="3" lg="6">
       <FormGroup>
       <Col>
@@ -176,21 +174,10 @@ function Addtasks() {
               Please choose a username.
             </Form.Control.Feedback>
               </FormGroup>
-        <Button
-          type="submit"
-          variant="contained"
-          size="small"
-          sx={{
-            margin: "0.9rem 0rem",
-            fonFamily: "'Abel','sanSerif'"
-          }}
-        >
-{
- taskState.addTodoStatus === "pending" ?(
-  <CircularProgress size={24} color = "secondary"/>
- ): "Add Task"
-}      
-  </Button>
+              
+              <Button variant="primary" type="submit">
+        Submit
+      </Button>
           {taskState.addTodoStatus === "rejected" ? (
             <Alert severity="error">{taskState.addtodoError}</Alert>
               ): null}

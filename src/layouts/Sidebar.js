@@ -57,6 +57,7 @@ const Sidebar = () => {
   const loginStatus = useSelector((state)=>state.auth.loginStatus)
 const token = localStorage.getItem("token");
    const user = token && jwtDecode(token);
+   console.log("user",user);
   if(loginStatus  === "success") {
  
   if(user.role ==="admin"){

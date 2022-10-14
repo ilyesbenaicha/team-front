@@ -230,7 +230,7 @@ export const Tasks = () => {
   return (
     <>
     <Row>
-    {user?.role ==="Admin"?<TasksList/>:null}
+    
     <Col xs lg="3">
    {user?.role==="Admin" ?<Addtasks/>:null}</Col>
     <Col md="auto">
