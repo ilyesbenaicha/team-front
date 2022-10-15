@@ -209,8 +209,9 @@ export const Tasks = () => {
   };
 
   const returnItemsForColumn = (columnName) => {
+    console.log("tasks =",tasks);
     return tasks
-    .filter((task) => task.etat === columnName)
+    ?.filter((task) => task.etat === columnName)
       ?.map((task, index) => (
         <MovableItem
           key={task.id}

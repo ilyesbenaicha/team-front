@@ -64,7 +64,7 @@ const Feeds = () => {
   //console.log("id of user",user.id);
   useEffect(() => {
       try {
-      const result=axios.get(`http://localhost:5000/api/project/getprojectByuser/${user.id}`).then((res)=>{
+      const result=axios.get(`https://teams-back.mobelite.fr/api/project/getprojectByuser/${user.id}`).then((res)=>{
           console.log("res.data",res.data);
         console.log("res",res);
         setProject(res.data); 

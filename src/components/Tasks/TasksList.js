@@ -19,7 +19,7 @@ function TasksList() {
 console.log("listOfTasks",taskList)
 const [users ,setUsers] =useState([])
 useEffect(() => {
-  axios.get("http://localhost:5000/api/project/getprojectByuser").then((res) => {
+  axios.get("https://teams-back.mobelite.fr/api/project/getprojectByuser").then((res) => {
     console.log("res", res);
     setUsers(res.data);
   });

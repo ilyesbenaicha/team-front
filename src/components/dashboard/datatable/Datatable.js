@@ -7,7 +7,7 @@ function Datatable() {
   const [projects, setprojects] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/project/").then((res) => {
+    axios.get("https://teams-back.mobelite.fr/api/project/").then((res) => {
       console.log("res", res);
       setprojects(res.data);
     });

@@ -14,11 +14,6 @@ const AdminNavigation =[
     icon: "bi bi-layout-split",
   },
   {
-    title: "Forms",
-    href: "/forms",
-    icon: "bi bi-textarea-resize",
-  },
-  {
     title: "Tasks",
     href: "/Tasks",
     icon: "bi bi-list-task",

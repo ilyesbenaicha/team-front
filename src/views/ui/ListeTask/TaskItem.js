@@ -8,6 +8,8 @@ import {
   } from "reactstrap";
   
   const TaskItem = (props) => {
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
     return (
       <Card  border="primary" style={{ width: '18rem' }}>
         <CardBody className="p-4">
@@ -15,8 +17,8 @@ import {
           
           <CardText className="mt-3">{props.description}</CardText>
           <CardSubtitle >{props.user}</CardSubtitle>
-          <CardText>{props.startdate}</CardText>
-          <CardText>{props.enddate}</CardText>
+          <CardText>{new Date (props.startdate).toLocaleDateString("en-US", options)}</CardText>
+          <CardText>{new Date(props.enddate).toLocaleDateString("en-US", options)}</CardText>
         </CardBody>
         <CardFooter>
         {props.etat === "Do it" ? (

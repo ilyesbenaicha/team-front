@@ -14,7 +14,7 @@ export default function Projects() {
 	const [startDte, setDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
   useEffect(() => {
-    axios.get("http://localhost:5000/api/user/getAdmin").then((res) => {
+    axios.get("https://teams-back.mobelite.fr/api/user/getAdmin").then((res) => {
       console.log("res", res);
       setUsers(res.data);
     });

@@ -40,6 +40,11 @@ useEffect(() => {
       {/***Top Cards***/}
 
       {/***Sales & Feed***/}
+      <Row>
+        <Col xs="6" md="4">
+          <Feeds/>
+        </Col>
+      </Row>
       {user?.role ==="SuperAdmin"?    <Row>
       <Col md="6" lg="3">
       <Card body color="info" inverse>

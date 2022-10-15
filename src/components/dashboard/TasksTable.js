@@ -67,9 +67,7 @@ const TasksTable = () => {
     useEffect(() => {
       setTasks(taskList)
     }, [taskList]); 
-
-let arry= tasks.project?.map((project)=>project.title)
-console.log("array of project", arry);  
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 return (
     <div>
     <Col lg="3">
@@ -93,44 +91,48 @@ return (
                 <th>tasks</th>
 
                 <th>Status</th>
-                <th>Weeks</th>
-                <th>Budget</th>
+                <th>Start Date</th>
+                <th> End Date</th>
+                <th>Project</th>
               </tr>
             </thead>
             <tbody>
-              {tasks.map((tasks, index) => (
+              {tasks.map((task, index) => (
                 <tr key={index} className="border-top">
                   <td>
                     <div className="d-flex align-items-center p-2">
 
                       <div className="ms-3">
-                        {/* <h6 className="mb-0">{tasks.user.last_name}</h6> */}
-                        {/* <span className="text-muted">{tasks.user.email}</span> */}
+                        <h6 className="mb-0">{task.user?.last_name}</h6> 
+                         <span className="text-muted">{task.user?.email}</span> 
                       </div>
                     </div>
                   </td>
-                  <td>{tasks.title}</td>
+                  <td>{task.title}</td>
                   <td>
-                    {tasks.etat === "Do it" ? (
+                    {task.etat === "Do it" ? (
                       <span className="p-2 bg-primary rounded-circle d-inline-block ms-3"></span>
                     ):
-                    tasks.etat === "AWAITING REVIEW" ? (
+                    task.etat === "AWAITING REVIEW" ? (
                       <span className="p-2 bg-success rounded-circle d-inline-block ms-3"></span>
                     )
-                     : tasks.etat === "In Progress" ? (
+                     : task.etat === "In Progress" ? (
                       <span className="p-2 bg-info rounded-circle d-inline-block ms-3"></span>
                     ) 
-                    : tasks.etat === "DONE" ? (
+                    : task.etat === "DONE" ? (
                       <span className="p-2 bg-danger rounded-circle d-inline-block ms-3"></span>
                     )
                     : (
                       <span className="p-2 bg-success rounded-circle d-inline-block ms-3"></span>
                     )}
                   </td>
-                  <td>{tasks.etat}</td>
-                  <td>{arry}</td>
+                  <td>{new Date (task.start_date).toLocaleDateString("en-US", options)}</td>
+                  <td>{new Date (task.end_date).toLocaleDateString("en-US", options)}</td>
+
+                  <td>{task.project?.title}</td>
                 </tr>
               ))}
+          
             </tbody>
           </Table>
         </CardBody>

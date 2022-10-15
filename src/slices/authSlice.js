@@ -62,7 +62,7 @@ export const loginUser = createAsyncThunk(
     "auth/loginUser",
     async (user,{rejectWithValue})=>{
         try {
-            const token = await axios.post('http://localhost:5000/api/user/login',{
+            const token = await axios.post('https://teams-back.mobelite.fr/api/user/login',{
                 email : user.email,
                 password : user.password,
                 role : user.role

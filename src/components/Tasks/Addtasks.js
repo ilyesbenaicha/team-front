@@ -37,7 +37,7 @@ function Addtasks() {
   //const [Cdate, setDatee] = useState(new Date().toLocaleDateString('fr-FR'));
   useEffect(() => {
       try {
-      const result=axios.get(`http://localhost:5000/api/project/getprojectByuser/${user.id}`).then((res)=>{
+      const result=axios.get(`https://teams-back.mobelite.fr/api/project/getprojectByuser/${user.id}`).then((res)=>{
           console.log("res.data",res.data);
         console.log("res",res);
         setProject(res.data); 
@@ -55,7 +55,7 @@ function Addtasks() {
   const [employer, setEmployer] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/user/getEmployer").then((res) => {
+    axios.get("https://teams-back.mobelite.fr/api/user/getEmployer").then((res) => {
       console.log("res", res);
       setEmployer(res.data);
     });
@@ -69,7 +69,7 @@ function Addtasks() {
     // }
 
     // setValidated(true);
-    dispatch(addTask(task));
+    dispatch(addTask({...task,end_date:endDate,start_date:startDate}));
     
   };
   console.log(" new task=", task);

@@ -15,7 +15,7 @@ const initialState={
 export const addCalander = createAsyncThunk("calander/addCalander",
 async (newEvent,{rejectWithValue})=>{
     try{
-        const response = await axios.post('http://localhost:5000/api/calander',newEvent,{
+        const response = await axios.post('https://teams-back.mobelite.fr/api/calander',newEvent,{
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
         return response.data
@@ -27,7 +27,7 @@ async (newEvent,{rejectWithValue})=>{
 )
 export const getCalendar = createAsyncThunk('calanders/getCalender',async(id,{rejectWithValue})=>{
     try {
-        const response=  await axios.get('http://localhost:5000/api/calander/',{
+        const response=  await axios.get('https://teams-back.mobelite.fr/api/calander/',{
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
           return response.data

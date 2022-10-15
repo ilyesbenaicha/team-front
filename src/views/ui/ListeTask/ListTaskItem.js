@@ -52,7 +52,7 @@ function ListTaskItem() {
 
   useEffect(() => {
     try {
-    const result=axios.get(`http://localhost:5000/api/project/getprojectByuser/${user.id}`).then((res)=>{
+    const result=axios.get(`https://teams-back.mobelite.fr/api/project/getprojectByuser/${user.id}`).then((res)=>{
         console.log("res.data",res.data);
       console.log("res",res);
       setProject(res.data); 
@@ -67,7 +67,7 @@ function ListTaskItem() {
 
 useEffect(() => {
   try {
-  const result=axios.get(`http://localhost:5000/api/task/getTaskByproject/${proSel.proSel}`).then((res)=>{
+  const result=axios.get(`https://teams-back.mobelite.fr/api/task/getTaskByproject/${proSel.proSel}`).then((res)=>{
       console.log("res.data",res.data);
     console.log("res",res);
     setTask(res.data); 
@@ -103,7 +103,7 @@ console.log("task",task);
             title={blg?.title}
             subtitle={blg?.description}
             etat={blg?.etat}
-            user={blg?.user.id}
+            user={blg?.user.first_name}
             startdate={blg?.start_date}
             enddate={blg?.end_date}
           />

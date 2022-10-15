@@ -16,7 +16,7 @@ const initialState = {
 export const addUser = createAsyncThunk("user/addUser",
 async(user,{rejectWithValue,dispatch})=>{
     try {
-        await axios.post('http://localhost:5000/api/user/register',user,{
+        await axios.post('https://teams-back.mobelite.fr/api/user/register',user,{
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     
@@ -30,7 +30,7 @@ async(user,{rejectWithValue,dispatch})=>{
 export const getUser = createAsyncThunk("user/getUser",
 async(para,{rejectWithValue})=>{
     try {
-      const response=  await axios.get('http://localhost:5000/api/user/getAll',{
+      const response=  await axios.get('https://teams-back.mobelite.fr/api/user/getAll',{
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     
@@ -45,7 +45,7 @@ export const deletUser = createAsyncThunk("user/deletUser",
 async(_id,{rejectWithValue})=>{ 
     console.log(_id);
     try {
-      const response=  await axios.delete('http://localhost:5000/api/user/'+_id,{
+      const response=  await axios.delete('https://teams-back.mobelite.fr/api/user/'+_id,{
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
        
     })
@@ -60,7 +60,7 @@ export const getOneUser = createAsyncThunk("user/getOneUser",
 async(_id,{rejectWithValue})=>{ 
     console.log(_id);
     try {
-      const response=  await axios.delete('http://localhost:5000/api/user/'+_id,{
+      const response=  await axios.delete('https://teams-back.mobelite.fr/api/user/'+_id,{
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
        
     })

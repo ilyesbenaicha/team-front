@@ -16,7 +16,7 @@ const   initialState={
     export const addTask = createAsyncThunk("tasks/addTask",
     async(task,{rejectWithValue})=>{
         try {
-          const response=  await axios.post('http://localhost:5000/api/task/addTask/',task,{
+          const response=  await axios.post('https://teams-back.mobelite.fr/api/task/addTask/',task,{
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
           console.log("response",response.data); 
@@ -30,7 +30,7 @@ const   initialState={
     })
     export const getTask = createAsyncThunk('tasks/getTask',async(id,{rejectWithValue})=>{
         try {
-            const response=  await axios.get('http://localhost:5000/api/task/',{
+            const response=  await axios.get('https://teams-back.mobelite.fr/api/task/',{
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             })
               return response.data
@@ -41,7 +41,7 @@ const   initialState={
     })
     export const getTaskByproject = createAsyncThunk('tasks/getTaskByProject',async(id,{rejectWithValue})=>{
         try {
-            const response=  await axios.get('http://localhost:5000/api/task/getTaskByProject/'+id,{
+            const response=  await axios.get('https://teams-back.mobelite.fr/api/task/getTaskByProject/'+id,{
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             })
               return response.data
@@ -52,7 +52,7 @@ const   initialState={
     })
     export const updateTask = createAsyncThunk('tasks/updateTask',async(task,{rejectWithValue,dispatch})=>{
         try {
-            await axios.put('http://localhost:5000/api/task/',task,{
+            await axios.put('https://teams-back.mobelite.fr/api/task/',task,{
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             })
               return dispatch(getTask())
@@ -64,7 +64,7 @@ const   initialState={
     })
     export const updateTaskeByName = createAsyncThunk('tasks/updateTaskByName',async(task,{rejectWithValue,dispatch})=>{
         try {
-            await axios.put('http://localhost:5000/api/task/update/'+task.title,{etat:task.columnName},{
+            await axios.put('https://teams-back.mobelite.fr/api/task/update/'+task.title,{etat:task.columnName},{
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             })
             return dispatch(getTask())

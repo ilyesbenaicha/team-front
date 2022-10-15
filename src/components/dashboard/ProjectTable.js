@@ -88,33 +88,31 @@ return (
               </tr>
             </thead>
             <tbody>
-              {projects.map((projects, index) => (
+              {projects.map((project, index) => (
                 <tr key={index} className="border-top">
                   <td>
                     <div className="d-flex align-items-center p-2">
 
                       <div className="ms-3">
-                      {/* { (projects.user).map((user)=>( 
+                    
                       
-                       <h6 className="mb-0">{user.first_name}</h6>
-                      ))
-                      } */}
-                       
+                       <h6 className="mb-0">{project.user?.first_name}</h6>
+                       <span className="text-muted">{project.user?.email}</span>
                       </div>
                     </div>
                   </td>
-                  <td>{projects.title}</td>
+                  <td>{project.title}</td>
                   <td>
-                    {projects.archive ? (
+                    {project.archive ? (
                       <span className="p-2 bg-warning rounded-circle d-inline-block ms-3"></span>
-                    ) : !projects.archive ? (
+                    ) : !project.archive ? (
                       <span className="p-2 bg-primary rounded-circle d-inline-block ms-3"></span>
                     ) : (
                       <span className="p-2 bg-success rounded-circle d-inline-block ms-3"></span>
                     )}
                   </td>
-                  {/* <td>{projects.description}</td> */}
-                  <td>{projects.budget}</td>
+                  <td>{project.description}</td>
+                  <td>{project.createdAt}</td>
                 </tr>
               ))}
             </tbody>

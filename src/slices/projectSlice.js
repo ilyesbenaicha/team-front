@@ -15,7 +15,7 @@ const initialState= {
 export const addProject = createAsyncThunk("project/addProject",
 async (project,{rejectWithValue})=>{
     try{
-        const response = await axios.post('http://localhost:5000/api/project',project,{
+        const response = await axios.post('https://teams-back.mobelite.fr/api/project',project,{
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
         return response.data
@@ -27,7 +27,7 @@ async (project,{rejectWithValue})=>{
 )
 export const getProject = createAsyncThunk('projects/getProject',async(id,{rejectWithValue})=>{
     try {
-        const response=  await axios.get('http://localhost:5000/api/project/',{
+        const response=  await axios.get('https://teams-back.mobelite.fr/api/project/',{
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
           return response.data
@@ -38,7 +38,7 @@ export const getProject = createAsyncThunk('projects/getProject',async(id,{rejec
 })
 export const getProjectbyuser = createAsyncThunk('projects/getProjectbyuser',async(id,{rejectWithValue})=>{
     try {
-        const response=axios.get('http://localhost:5000/api/project/getprojectByuser/',{
+        const response=axios.get('https://teams-back.mobelite.fr/api/project/getprojectByuser/',{
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
           return response.data
@@ -49,7 +49,7 @@ export const getProjectbyuser = createAsyncThunk('projects/getProjectbyuser',asy
 })
 export const updateProject = createAsyncThunk('projects/updateProject',async(project,{rejectWithValue,dispatch})=>{
     try {
-        await axios.put('http://localhost:5000/api/project/',project,{
+        await axios.put('https://teams-back.mobelite.fr/api/project/',project,{
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
           return dispatch(getProject())
